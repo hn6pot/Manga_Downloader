@@ -79,7 +79,7 @@ public class LelScanConnector extends Connector{
 	  while(it.hasNext()){
 		  Element op = it.next();
 		  result.put(op.text(), op.val());
-		  if 
+		
 		 //TODO BREAK condition
 		  
 	  }
