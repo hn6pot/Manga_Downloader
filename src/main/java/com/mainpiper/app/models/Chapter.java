@@ -1,4 +1,4 @@
-package com.christiankula.vulpes.models;
+package com.mainpiper.app.models;
 
 /**
  * @author Christian Kula

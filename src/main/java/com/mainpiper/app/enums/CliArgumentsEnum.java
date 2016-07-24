@@ -1,9 +1,13 @@
-package com.christiankula.vulpes.enums;
+package com.mainpiper.app.enums;
+
+import lombok.Getter;
 
 /**
  * @author Christian Kula
  * @date 22/07/2016
  */
+
+@Getter
 public enum CliArgumentsEnum {
     VOLUME("-v"),
     CHAPTER("-c"),
@@ -12,10 +16,6 @@ public enum CliArgumentsEnum {
 
 
     private String cliArg;
-
-    public String cliArg(){
-        return this.cliArg;
-    }
 
     CliArgumentsEnum(String cliArg) {
         this.cliArg = cliArg;

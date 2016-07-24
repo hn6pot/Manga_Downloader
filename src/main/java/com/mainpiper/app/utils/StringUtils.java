@@ -1,4 +1,4 @@
-package com.christiankula.vulpes.utils;
+package com.mainpiper.app.utils;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;
@@ -7,7 +7,7 @@ public class StringUtils {
 
     private StringUtils() {
     }
-
+//TODO -> Move in MangaFox class
     public static String transformToMangaFoxUrlName(String mangaName) {
         return deAccent(mangaName).replaceAll(" ", "_").replaceAll("[^0-9a-zA-Z_]", "").toLowerCase();
     }

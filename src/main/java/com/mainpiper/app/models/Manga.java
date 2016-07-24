@@ -1,8 +1,8 @@
-package com.christiankula.vulpes.models;
-
-import com.christiankula.vulpes.utils.StringUtils;
+package com.mainpiper.app.models;
 
 import java.util.Set;
+
+import com.mainpiper.app.utils.StringUtils;
 
 /**
  * @author Christian Kula

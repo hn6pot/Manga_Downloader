@@ -1,13 +1,17 @@
-package com.christiankula.vulpes.enums;
+package com.mainpiper.app.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum MangaWebsitesEnum {
-    MANGAFOX("mf");
-
+	//FIXME check enum syntax
+    MANGAFOX("mfox"),
+	JAPSCAN("japscan"),
+	LELSCAN("lelscan"),
+	LIRESCAN("lirescan"),
+	LECTURE_EN_LIGNE("lecture-en-ligne");
+	
     private final String cliShortcut;
-
-    public String cliShortcut() {
-        return cliShortcut;
-    }
 
     MangaWebsitesEnum(String cliShortcut) {
         this.cliShortcut = cliShortcut;

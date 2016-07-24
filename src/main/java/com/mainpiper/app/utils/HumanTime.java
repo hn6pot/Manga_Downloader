@@ -19,7 +19,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
-package com.christiankula.vulpes.utils;
+package com.mainpiper.app.utils;
 
 import java.io.Externalizable;
 import java.io.IOException;

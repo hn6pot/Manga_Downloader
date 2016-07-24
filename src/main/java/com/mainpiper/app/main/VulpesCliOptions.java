@@ -1,17 +1,18 @@
-package com.christiankula.vulpes.main;
+package com.mainpiper.app.main;
 
 import org.apache.commons.cli.Options;
+
+import lombok.Getter;
 
 /**
  * @author Christian Kula
  *         23/07/2016
  */
-public class VulpesCliOptions extends Options {
-    private static VulpesCliOptions instance = new VulpesCliOptions();
 
-    public static VulpesCliOptions getInstance() {
-        return instance;
-    }
+@Getter
+public class VulpesCliOptions extends Options {
+	
+    private static VulpesCliOptions instance = new VulpesCliOptions();
 
     private VulpesCliOptions() {
         addOption("s", true, "display current time");
@@ -19,4 +20,9 @@ public class VulpesCliOptions extends Options {
         addOption("c", true, "display current time");
         addOption("help", false, "display help");
     }
+
+	public static VulpesCliOptions getInstance() {
+		return instance;
+	}
+
 }

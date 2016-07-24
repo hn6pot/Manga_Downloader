@@ -1,29 +1,44 @@
-package com.christiankula.vulpes.services.impl;
+package com.mainpiper.app.services.impl;
 
-import com.christiankula.vulpes.models.mangas.MangaFoxManga;
-import com.christiankula.vulpes.services.DownloadService;
+
+import com.mainpiper.app.services.DownloadService;
 
 /**
  * @author Christian Kula
  *         22/07/2016
  */
 public class MangaFoxDowloadService implements DownloadService {
-    private final MangaFoxManga manga;
 
-    public MangaFoxDowloadService(String mangaName) {
-        this.manga = new MangaFoxManga(mangaName);
-    }
+	public void downloadManga() {
+		// TODO Auto-generated method stub
+		
+	}
 
-    public void downloadManga() {
-        System.out.println("Download Mangafox " + manga.getName());
-    }
+	public void downloadVolume(String volumeNumber) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    public void downloadVolume(String volumeNumber) {
-        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber);
+	public void downloadChapter(String volumeNumber, String chapterNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+   
 
-    }
-
-    public void downloadChapter(String volumeNumber, String chapterNumber) {
-        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber + " Chapter " + chapterNumber);
-    }
+//    public MangaFoxDowloadService(String mangaName) {
+//        this.manga = new MangaFox(mangaName);
+//    }
+//
+//    public void downloadManga() {
+//        System.out.println("Download Mangafox " + manga.getName());
+//    }
+//
+//    public void downloadVolume(String volumeNumber) {
+//        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber);
+//
+//    }
+//
+//    public void downloadChapter(String volumeNumber, String chapterNumber) {
+//        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber + " Chapter " + chapterNumber);
+//    }
 }

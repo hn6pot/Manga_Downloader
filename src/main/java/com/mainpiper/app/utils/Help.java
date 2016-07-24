@@ -1,6 +1,6 @@
-package com.christiankula.vulpes.utils;
+package com.mainpiper.app.utils;
 
-import com.christiankula.vulpes.main.Main;;
+import com.mainpiper.app.main.Main;;
 
 public class Help {
 

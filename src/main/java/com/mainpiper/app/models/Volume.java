@@ -1,4 +1,4 @@
-package com.christiankula.vulpes.models;
+package com.mainpiper.app.models;
 
 import java.util.Set;
 import java.util.TreeSet;
