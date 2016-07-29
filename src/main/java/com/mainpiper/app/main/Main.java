@@ -1,17 +1,21 @@
 package com.mainpiper.app.main;
 
+import java.util.Iterator;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 
 import com.mainpiper.app.enums.CliArgumentsEnum;
 import com.mainpiper.app.enums.MangaWebsitesEnum;
 import com.mainpiper.app.services.DownloadService;
-import com.mainpiper.app.services.impl.MangaFoxDowloadService;
-import com.mainpiper.app.utils.Help;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +48,30 @@ public class Main {
             cli += s + " ";
         }
         System.out.println("<> : " + cli.trim());
+        Connection jsoupConnection = Jsoup.connect("http://tokyo-ghoul-re.lel-scan.me/")
+        		.header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+        		.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+        		.header("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.3")
+        		.header("Accept-Language", "en-US,en;q=0.8")
+        		.header("keep-alive", "keep-alive")
+        		.timeout(5000)
+			    .ignoreContentType(true).parser(Parser.htmlParser());
+
+        try{
+        	Document content = jsoupConnection.get();
+        	Iterator<Element> body = content.select("body option").iterator();
+        	while(body.hasNext()){
+        		Element it = (Element) body.next();
+        		System.out.println(it.text());
+        		//System.out.println(it.val());
+        	}
+        	
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        	System.exit(1);
+        }
+        	
         
         log.info("toto");
 //        String mangaName = null;

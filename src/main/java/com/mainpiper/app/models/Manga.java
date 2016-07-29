@@ -2,44 +2,42 @@ package com.mainpiper.app.models;
 
 import java.util.Set;
 
-import com.mainpiper.app.utils.StringUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * @author Christian Kula
+ * @author MainPiper Dev
  * @date 22/07/2016.
  */
-public class Manga {
+@Getter
+@Setter
+public abstract class Manga {
     protected String name;
+    protected static String language;
 
-    protected String url;
-
-    protected Set<Volume> volumes;
-
+    protected Set<Chapter> chapter;
+    
+    protected static Boolean DORSS;
+    
     public Manga(String mangaName) {
         this.name = mangaName;
     }
 
-    public String getName() {
-        return name;
-    }
+	public static String getLanguage() {
+		return language;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public static void setLanguage(String language) {
+		Manga.language = language;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public static Boolean getDORSS() {
+		return DORSS;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public static void setDORSS(Boolean dORSS) {
+		DORSS = dORSS;
+	}
+    
 
-    public Set<Volume> getVolumes() {
-        return volumes;
-    }
-
-    public void setVolumes(Set<Volume> volumes) {
-        this.volumes = volumes;
-    }
 }

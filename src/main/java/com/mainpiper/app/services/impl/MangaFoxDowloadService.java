@@ -9,8 +9,17 @@ import com.mainpiper.app.services.DownloadService;
  */
 public class MangaFoxDowloadService implements DownloadService {
 
+	
+	
+	//check list manga
+	//ok prend manga truk /chap/volume 
+	//ok down -> download cette liste
+	//ok json update ma maman 
+	//end of story
+	
 	public void downloadManga() {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
