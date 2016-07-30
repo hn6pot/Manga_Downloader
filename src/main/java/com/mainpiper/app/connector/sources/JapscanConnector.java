@@ -2,6 +2,7 @@ package com.mainpiper.app.connector.sources;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -29,7 +30,7 @@ public class JapscanConnector extends ConnectorHTML implements ConnectorInterfac
 	private String mangaName;
     private String mangaUrl;
 
-	private final HashMap<String, String> chaptersUrl;
+	private final Map<String, String> chaptersUrl;
     
     //FIXME change string to manga obj
     public JapscanConnector(String mangaName) {
@@ -50,16 +51,16 @@ public class JapscanConnector extends ConnectorHTML implements ConnectorInterfac
         return StringUtils.deAccent(mangaName).replaceAll(" ", "-").replaceAll("_", "-").toLowerCase();
     }
     
-	public final HashMap<String, String> getMangaUrls(){
+	public final Map<String, String> getMangaUrls(){
 
-		   HashMap<String, String> result = new HashMap<String, String>();
+		   Map<String, String> result = new HashMap<String, String>();
 		   
 		   //Treatment
 		   log.info("Trying to get manga url from : {}", WEBSITEURL);
 		
 		   Elements option = ConnectorUtils.tryFirstConnect(connector, WEBSITEURL, "a"); 
 		   if(option == null)
-			   return null;;
+			   return null;
 		   
 		  Iterator<Element> it = option.iterator();
 		  
@@ -75,7 +76,7 @@ public class JapscanConnector extends ConnectorHTML implements ConnectorInterfac
 	   }
 
 
-	public HashMap<String, String> getChaptersUrl() {
+	public Map<String, String> getChaptersUrl() {
 
 		//Variable Initialization
 		   HashMap<String, String> result = new HashMap<String, String>();
@@ -114,9 +115,9 @@ public class JapscanConnector extends ConnectorHTML implements ConnectorInterfac
 	   }
 	   
 	
-	public HashMap<String, String> getImageUrls(String chapterNumber) {
+	public Map<String, String> getImageUrls(String chapterNumber) {
 		   //Variable Initialization
-		HashMap<String, String> result = new HashMap<String, String>();
+		Map<String, String> result = new HashMap<String, String>();
 			
 	   String chapterUrl = StringUtils.checkChapter(chapterNumber, chaptersUrl);
 	   if(chapterUrl == null)

@@ -1,17 +1,17 @@
 package com.mainpiper.app.connector;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface ConnectorInterface {
 
 	//TODO add static and private methods with java 8
 	
-	HashMap<String, String> getMangaUrls();
+	Map<String, String> getMangaUrls();
 	
 	
-	HashMap<String, String> getChaptersUrl();
+	Map<String, String> getChaptersUrl();
 
-	HashMap<String, String> getImageUrls(String chapterNumber);
+	Map<String, String> getImageUrls(String chapterNumber);
 
 
 }

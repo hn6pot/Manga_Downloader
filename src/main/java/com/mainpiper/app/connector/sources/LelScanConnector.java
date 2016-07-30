@@ -2,6 +2,7 @@ package com.mainpiper.app.connector.sources;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -33,7 +34,7 @@ public class LelScanConnector extends ConnectorHTML implements ConnectorInterfac
 	private String mangaName;
     private String mangaUrl;
 
-	private final HashMap<String, String> chaptersUrl;
+	private final Map<String, String> chaptersUrl;
     
 
     //FIXME change string to manga obj
@@ -55,7 +56,7 @@ public class LelScanConnector extends ConnectorHTML implements ConnectorInterfac
         return StringUtils.deAccent(mangaName).replaceAll(" ", "-").replaceAll("_", "-").toLowerCase();
     }
     
-	public final HashMap<String, String> getMangaUrls(){
+	public final Map<String, String> getMangaUrls(){
 
 		   HashMap<String, String> result = new HashMap<String, String>();
 		   
@@ -82,10 +83,10 @@ public class LelScanConnector extends ConnectorHTML implements ConnectorInterfac
 		  return result;
 	   }
 
-	public HashMap<String, String> getChaptersUrl() {
+	public Map<String, String> getChaptersUrl() {
 
 		//Variable Initialization
-		   HashMap<String, String> result = new HashMap<String, String>();
+		   Map<String, String> result = new HashMap<String, String>();
 		   String urlBis = LINKTOMANGABIS + this.mangaName + ".php";
 		   
 		   log.info("Trying to get url chapter from : {}, on manga : {}", this.mangaUrl, this.mangaName);
@@ -112,9 +113,9 @@ public class LelScanConnector extends ConnectorHTML implements ConnectorInterfac
 	   }
 	   
 	
-	public HashMap<String, String> getImageUrls(String chapterNumber) {
+	public Map<String, String> getImageUrls(String chapterNumber) {
 		   //Variable Initialization
-		HashMap<String, String> result = new HashMap<String, String>();
+		Map<String, String> result = new HashMap<String, String>();
 			
 	   String chapterUrl = StringUtils.checkChapter(chapterNumber, chaptersUrl);
 	   if(chapterUrl == null)

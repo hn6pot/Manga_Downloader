@@ -1,7 +1,7 @@
 package com.mainpiper.app.utils;
 
 import java.text.Normalizer;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class StringUtils {
     	return valeur; 
     	} 
     
-    public static String checkChapter(String chapterNumber, HashMap<String, String> chaptersUrl){
+    public static String checkChapter(String chapterNumber, Map<String, String> chaptersUrl){
 		 String chapterUrl = chaptersUrl.get(chapterNumber);
 		   if(chapterNumber == null){
 			   if (StringUtils.isChapterNumber(chapterNumber)){
