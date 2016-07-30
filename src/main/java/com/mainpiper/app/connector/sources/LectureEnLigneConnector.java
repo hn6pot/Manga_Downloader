@@ -1,4 +1,4 @@
-package com.mainpiper.app.connector;
+package com.mainpiper.app.connector.sources;
 
 import org.jsoup.Connection;
 

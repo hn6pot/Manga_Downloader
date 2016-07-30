@@ -1,9 +1,10 @@
-package com.mainpiper.app.connector;
+package com.mainpiper.app.connector.sources;
 
 import java.util.HashMap;
 
 import org.jsoup.Connection;
 
+import com.mainpiper.app.connector.Connector;
 import com.mainpiper.app.models.MangaModels.MangaFox;
 import com.mainpiper.app.utils.StringUtils;
 

@@ -4,9 +4,9 @@ import java.text.Normalizer;
 import java.util.regex.Pattern;
 
 public class StringUtils {
+	
+	private static final char dot = '.';
 
-    private StringUtils() {
-    }
 //TODO -> Move in MangaFox class
     
 
@@ -15,6 +15,19 @@ public class StringUtils {
         final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
+    
+    public static boolean isChapterNumber(String chaine){ 
+    	boolean valeur = true; 
+    	char[] tab = chaine.toCharArray(); 
+
+    	for(char carac : tab){ 
+	    	if(!Character.isDigit(carac) && valeur){
+	    		if(!(carac == dot)){valeur = false;} 
+	    		} 
+    	} 
+
+    	return valeur; 
+    	} 
 
 //    public static String getPageLinkModel(String pageUrl) {
 //        String model = pageUrl;
