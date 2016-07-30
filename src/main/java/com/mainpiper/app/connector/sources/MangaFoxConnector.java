@@ -30,7 +30,7 @@ public class MangaFoxConnector extends Connector {
     
 
     public MangaFoxConnector(MangaFox manga) {
-        super();
+        super(WEBSITEURL);
      
         this.mangaName = transformMangaName(manga.getName());
         this.mangaUrl = LINKTOMANGA + this.mangaName;

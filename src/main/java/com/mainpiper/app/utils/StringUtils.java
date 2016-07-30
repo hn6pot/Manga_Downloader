@@ -1,8 +1,12 @@
 package com.mainpiper.app.utils;
 
 import java.text.Normalizer;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class StringUtils {
 	
 	private static final char dot = '.';
@@ -28,6 +32,20 @@ public class StringUtils {
 
     	return valeur; 
     	} 
+    
+    public static String checkChapter(String chapterNumber, HashMap<String, String> chaptersUrl){
+		 String chapterUrl = chaptersUrl.get(chapterNumber);
+		   if(chapterNumber == null){
+			   if (StringUtils.isChapterNumber(chapterNumber)){
+				   log.error("The chapter {} is not yet available !", chapterNumber);
+			   }
+			   else {
+			   log.error("There is no chapter {}, you probably misspelled it");
+			   }
+			   return null;
+		   }
+		  return chapterUrl;
+	}
 
 //    public static String getPageLinkModel(String pageUrl) {
 //        String model = pageUrl;

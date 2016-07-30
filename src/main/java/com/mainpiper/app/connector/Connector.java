@@ -13,18 +13,24 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mainpiper.app.models.Chapter;
 import com.mainpiper.app.models.Manga;
+import com.mainpiper.app.utils.StringUtils;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+
 public abstract class Connector {
 	 protected final static int MAX_TRIES = 3;
 	 protected final static int TIME_OUT_IN_MILLIS = 5000;
+	 protected final String WEBSITE_GENERIQUE_URL;
+	
 	 
 	 
-	 public Connector(){
+	 public Connector(String websiteurl){
+		 WEBSITE_GENERIQUE_URL = websiteurl;
 		 //TODO get the manga url from enum
 	 }
      
@@ -52,7 +58,10 @@ public abstract class Connector {
        
 	 }
 	 //FIXME do single header
-	 
+
+    public String getSiteUrl(){
+    	return WEBSITE_GENERIQUE_URL;
+    }
 	
 	
 	 protected final Map<Chapter, String> CHAPTERS_WITH_ERRORS = new HashMap<Chapter, String>();

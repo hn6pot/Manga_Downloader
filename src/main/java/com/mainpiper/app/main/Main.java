@@ -12,8 +12,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
 
-import com.mainpiper.app.connector.ConnectorInteface;
+import com.mainpiper.app.connector.ConnectorInterface;
+import com.mainpiper.app.connector.sources.JapscanConnector;
 import com.mainpiper.app.connector.sources.LelScanConnector;
 import com.mainpiper.app.enums.CliArgumentsEnum;
 import com.mainpiper.app.enums.MangaWebsitesEnum;
@@ -23,13 +25,13 @@ import com.mainpiper.app.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Christian Kula
- *         22/07/2016
+ * @author Main Piper Dev
  */
 
 @Slf4j
 public class Main {
     public static final String APP_VERSION = "1.0";
+ 
 
 
     public static void main(String[] args) {
@@ -52,11 +54,46 @@ public class Main {
             cli += s + " ";
         }
       
-        System.out.println(LelScanConnector.getMangaUrl());
-        ConnectorInteface toto = new LelScanConnector("One Piece");
-        System.out.println(toto.getChaptersUrl());
         
-        System.out.println(toto.getImageUrls("752"));
+//        LelScanConnector toto = new LelScanConnector("One Piece");
+//        System.out.println(toto.getMangaUrls());
+//        System.out.println(toto.getChaptersUrl());
+//        
+//        System.out.println(toto.getImageUrls("752"));
+        
+        JapscanConnector jap = new JapscanConnector("one-piece");
+        System.out.println(jap.getMangaUrls());
+//        System.out.println(jap.getChaptersUrl());
+//        System.out.println(jap.getImageUrls("820"));
+//        
+        /*******************************TEST***********************************/
+        Connection connector = Jsoup.connect("http://www.japscan.com/mangas/")
+		.header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+ 		.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+ 		.header("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.3")
+ 		.header("Accept-Language", "en-US,en;q=0.8")
+ 		.header("keep-alive", "keep-alive")
+		.timeout(5000)
+		.ignoreContentType(true).parser(Parser.htmlParser());
+        
+        Elements option = null;
+    	try {
+    		   option = connector.get().select("body a");
+    		   
+    	   }
+    	   catch(Exception e){
+    		   log.warn("This url does not work properly : [Need Code Review]");
+    			   e.printStackTrace();
+    		   }
+    	
+    	Iterator<Element> it = option.iterator();
+    	Boolean first = true;
+    	while(it.hasNext()){
+    		Element o = it.next();
+
+    		
+    		
+    	}
         
         	
         
