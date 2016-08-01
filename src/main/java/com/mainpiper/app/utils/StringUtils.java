@@ -12,7 +12,15 @@ public class StringUtils {
 	private static final char dot = '.';
 
 //TODO -> Move in MangaFox class
-    
+
+
+    public static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
+    }
 
     public static String deAccent(final String str) {
         final String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
