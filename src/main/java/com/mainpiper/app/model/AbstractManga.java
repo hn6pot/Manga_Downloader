@@ -1,4 +1,6 @@
-package com.mainpiper.app.models;
+package com.mainpiper.app.model.manga;
+
+import com.mainpiper.app.model.misc.Chapter;
 
 import java.util.Set;
 
@@ -11,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class Manga {
+public abstract class AbstractManga {
     protected String name;
     protected static String language;
 
@@ -19,7 +21,7 @@ public abstract class Manga {
     
     protected static Boolean DORSS;
     
-    public Manga(String mangaName) {
+    public AbstractManga(String mangaName) {
         this.name = mangaName;
     }
 
@@ -28,7 +30,7 @@ public abstract class Manga {
 	}
 
 	public static void setLanguage(String language) {
-		Manga.language = language;
+		AbstractManga.language = language;
 	}
 
 	public static Boolean getDORSS() {

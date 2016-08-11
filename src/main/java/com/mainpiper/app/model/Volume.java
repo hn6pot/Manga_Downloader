@@ -1,5 +1,4 @@
-package com.mainpiper.app.models;
-
+package com.mainpiper.app.model.misc;
 import java.util.Set;
 import java.util.TreeSet;
 

@@ -12,8 +12,8 @@ public class MangaFoxDowloadService implements DownloadService {
 	}
 
 
-	//check list manga
-	//ok prend manga truk /chap/volume 
+	//check list mangas
+	//ok prend mangas truk /chap/volume
 	//ok down -> download cette liste
 	//ok json update ma maman 
 	//end of story
@@ -36,19 +36,19 @@ public class MangaFoxDowloadService implements DownloadService {
    
 
 //    public MangaFoxDowloadService(String mangaName) {
-//        this.manga = new MangaFox(mangaName);
+//        this.mangas = new MangaFox(mangaName);
 //    }
 //
 //    public void downloadManga() {
-//        System.out.println("Download Mangafox " + manga.getName());
+//        System.out.println("Download Mangafox " + mangas.getName());
 //    }
 //
 //    public void downloadVolume(String volumeNumber) {
-//        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber);
+//        System.out.println("Download Mangafox " + mangas.getName() + " Volume " + volumeNumber);
 //
 //    }
 //
 //    public void downloadChapter(String volumeNumber, String chapterNumber) {
-//        System.out.println("Download Mangafox " + manga.getName() + " Volume " + volumeNumber + " Chapter " + chapterNumber);
+//        System.out.println("Download Mangafox " + mangas.getName() + " Volume " + volumeNumber + " Chapter " + chapterNumber);
 //    }
 }

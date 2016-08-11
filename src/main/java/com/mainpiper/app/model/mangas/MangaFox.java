@@ -1,13 +1,13 @@
-package com.mainpiper.app.models.MangaModels;
+package com.mainpiper.app.model.manga;
 
-import com.mainpiper.app.models.Manga;
+import com.mainpiper.app.model.manga.AbstractManga;
 
 /**
  * @author MainPiper Dev
  * @date 22/07/2016.
  */
 
-public class MangaFox extends Manga {
+public class MangaFox extends AbstractManga {
     
 	//TODO add volumes ?? 
     public MangaFox(String mangaName) {
