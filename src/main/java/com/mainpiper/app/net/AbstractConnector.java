@@ -1,4 +1,4 @@
-package com.mainpiper.app.connector;
+package com.mainpiper.app.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,8 +25,8 @@ public abstract class AbstractConnector {
     protected final String WEBSITE_GENERIC_URL;
 
 
-    public AbstractConnector(String websiteurl) {
-        WEBSITE_GENERIC_URL = websiteurl;
+    public AbstractConnector(String websiteUrl) {
+        WEBSITE_GENERIC_URL = websiteUrl;
         //TODO get the mangas url from enum
     }
 

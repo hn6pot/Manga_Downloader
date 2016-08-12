@@ -1,7 +1,7 @@
-package com.mainpiper.app.services.impl;
+package com.mainpiper.app.service.impl;
 
 
-import com.mainpiper.app.services.DownloadService;
+import com.mainpiper.app.service.DownloadService;
 
 /**
  * @author Christian Kula

@@ -1,6 +1,4 @@
-package com.mainpiper.app.model.manga;
-
-import com.mainpiper.app.model.misc.Chapter;
+package com.mainpiper.app.model;
 
 import java.util.Set;
 

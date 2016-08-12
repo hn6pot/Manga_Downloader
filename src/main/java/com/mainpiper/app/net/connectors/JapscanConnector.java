@@ -1,4 +1,4 @@
-package com.mainpiper.app.connector.sources;
+package com.mainpiper.app.net.connectors;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.mainpiper.app.connector.HtmlConnector;
+import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.ConnectorUtils;
 import com.mainpiper.app.util.StringUtils;
 

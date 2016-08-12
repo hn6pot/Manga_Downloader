@@ -1,4 +1,4 @@
-package com.mainpiper.app.utils;
+package com.mainpiper.app.util;
 
 import java.text.Normalizer;
 import java.util.Map;

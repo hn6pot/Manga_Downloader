@@ -1,23 +1,24 @@
 package com.mainpiper.app.main;
 
 import com.mainpiper.app.enums.MangaWebsite;
-import com.mainpiper.app.services.DownloadService;
-import com.mainpiper.app.services.impl.MangaFoxDowloadService;
-import com.mainpiper.app.utils.StringUtils;
+import com.mainpiper.app.service.DownloadService;
+import com.mainpiper.app.service.impl.MangaFoxDowloadService;
+import com.mainpiper.app.util.StringUtils;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.log4j.Logger;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Main Piper Dev
  */
-
 //@Slf4j
 public class Main {
     public static final String APP_VERSION = "1.0";
-
 
     public static void main(String[] args) {
         CommandLine commandLine = null;
@@ -70,7 +71,9 @@ public class Main {
 
     private static void printUsageAndExit(String errorMsg) {
         System.out.println(errorMsg);
-        new HelpFormatter().printHelp("manga_downloader <manga name>", CliOptions.getInstance(), true);
+        HelpFormatter hf = new HelpFormatter();
+        hf.setWidth(768);
+        hf.printHelp("manga_downloader <mangas name>", CliOptions.getInstance(), true);
         System.exit(1);
     }
 

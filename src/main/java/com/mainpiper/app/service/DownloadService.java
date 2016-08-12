@@ -1,4 +1,4 @@
-package com.mainpiper.app.services;
+package com.mainpiper.app.service;
 
 /**
  * @author Christian Kula

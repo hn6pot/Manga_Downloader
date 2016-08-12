@@ -21,7 +21,15 @@ public enum MangaWebsite {
 
     @Override
     public String toString() {
-        return this.cliShortcut + " (" + this.name + ")\n";
+        return this.cliShortcut + " (" + this.name + ")";
+    }
+
+    public static String listValues() {
+        String possibleValues = new String();
+        for (MangaWebsite mw : MangaWebsite.values()) {
+            possibleValues += mw + "\n";
+        }
+        return possibleValues;
     }
 
     MangaWebsite(String name, String cliShortcut) {

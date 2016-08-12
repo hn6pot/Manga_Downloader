@@ -1,6 +1,6 @@
-package com.mainpiper.app.model.manga;
+package com.mainpiper.app.model.mangas;
 
-import com.mainpiper.app.model.manga.AbstractManga;
+import com.mainpiper.app.model.AbstractManga;
 
 public class Japscan extends AbstractManga {
     

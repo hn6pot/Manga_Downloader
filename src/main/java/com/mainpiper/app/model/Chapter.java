@@ -1,4 +1,4 @@
-package com.mainpiper.app.model.misc;
+package com.mainpiper.app.model;
 
 /**
  * @author Christian Kula

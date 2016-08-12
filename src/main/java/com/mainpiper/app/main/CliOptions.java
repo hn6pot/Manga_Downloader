@@ -20,16 +20,12 @@ public class CliOptions extends Options {
     }
 
     private CliOptions() {
-        String possibleValues = "";
-        for (MangaWebsite mw : MangaWebsite.values()) {
-            possibleValues += mw;
-        }
-
         Option source = Option.builder(OPT_SOURCE)
                 .hasArg(true)
                 .optionalArg(false)
                 .argName("source")
-                .desc("Specify the website you want to download the manga from\nPossible values : " + possibleValues + "\n" +
+                .desc("Specify the website you want to download the mangas from\nPossible sources : " + MangaWebsite
+                        .listValues() + "\n" +
                         "If not specified, defaults to Manga Fox")
                 .required(false)
                 .build();

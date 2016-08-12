@@ -1,4 +1,4 @@
-package com.mainpiper.app.utils;
+package com.mainpiper.app.util;
 
 import org.jsoup.Connection;
 import org.jsoup.select.Elements;

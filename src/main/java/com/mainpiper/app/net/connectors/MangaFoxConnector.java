@@ -1,6 +1,6 @@
-package com.mainpiper.app.connector.sources;
+package com.mainpiper.app.net.connectors;
 
-import com.mainpiper.app.connector.HtmlConnector;
+import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.model.mangas.MangaFox;
 import com.mainpiper.app.util.StringUtils;
 
