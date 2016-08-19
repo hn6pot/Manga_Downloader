@@ -1,4 +1,5 @@
-package com.mainpiper.app.model.misc;
+package com.mainpiper.app.model;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,7 +16,7 @@ public class Volume {
     public Volume(String name, String number) {
         this.name = name;
         this.number = number;
-        this.chapters = new TreeSet<Chapter>();
+        chapters = new TreeSet<Chapter>();
     }
 
     public String getName() {
@@ -44,10 +45,10 @@ public class Volume {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 

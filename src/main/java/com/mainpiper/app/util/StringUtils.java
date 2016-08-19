@@ -1,5 +1,6 @@
 package com.mainpiper.app.util;
 
+import java.io.File;
 import java.text.Normalizer;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -8,11 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class StringUtils {
-	
-	private static final char dot = '.';
 
-//TODO -> Move in MangaFox class
+    private final static char dot = '.';
+    private final static String jpgExtension = ".jpg";
+    private final static String zipExtension = ".zip";
+    private final static String cbzExtension = ".cbz";
 
+    // TODO -> Move in MangaFox class
 
     public static boolean isEmpty(String str) {
         return str == null || str.isEmpty();
@@ -27,53 +30,54 @@ public class StringUtils {
         final Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
-    
-    public static boolean isChapterNumber(String chaine){ 
-    	boolean valeur = true; 
-    	char[] tab = chaine.toCharArray(); 
 
-    	for(char carac : tab){ 
-	    	if(!Character.isDigit(carac) && valeur){
-	    		if(!(carac == dot)){valeur = false;} 
-	    		} 
-    	} 
+    public static boolean isChapterNumber(String chaine) {
+        boolean valeur = true;
+        char[] tab = chaine.toCharArray();
 
-    	return valeur; 
-    	} 
-    
-    public static String checkChapter(String chapterNumber, Map<String, String> chaptersUrl){
-		 String chapterUrl = chaptersUrl.get(chapterNumber);
-		   if(chapterNumber == null){
-			   if (StringUtils.isChapterNumber(chapterNumber)){
-				   log.error("The chapter {} is not yet available !", chapterNumber);
-			   }
-			   else {
-			   log.error("There is no chapter {}, you probably misspelled it");
-			   }
-			   return null;
-		   }
-		  return chapterUrl;
-	}
+        for (char carac : tab) {
+            if (!Character.isDigit(carac) && valeur) {
+                if (!(carac == dot)) {
+                    valeur = false;
+                }
+            }
+        }
 
-//    public static String getPageLinkModel(String pageUrl) {
-//        String model = pageUrl;
-//        int startIndex = 0;
-//        int endIndex = 0;
-//
-//        for (int i = model.length() - 1; i >= 0; i--) {
-//            if (model.charAt(i) == '/' && startIndex == 0) {
-//                startIndex = i + 1;
-//            } else if (model.charAt(i) == '.' && endIndex == 0) {
-//                endIndex = i;
-//            }
-//        }
-//
-//        String modelStart = model.substring(0, startIndex);
-//        String modelEnd = model.substring(endIndex, model.length());
-//
-//        model = modelStart + "%d" + modelEnd;
-//        return model;
-//    }
+        return valeur;
+    }
+
+    public static String checkChapter(String chapterNumber, Map<String, String> chaptersUrl) {
+        String chapterUrl = chaptersUrl.get(chapterNumber);
+        if (chapterNumber == null) {
+            if (StringUtils.isChapterNumber(chapterNumber)) {
+                log.error("The chapter {} is not yet available !", chapterNumber);
+            } else {
+                log.error("There is no chapter {}, you probably misspelled it");
+            }
+            return null;
+        }
+        return chapterUrl;
+    }
+
+    // public static String getPageLinkModel(String pageUrl) {
+    // String model = pageUrl;
+    // int startIndex = 0;
+    // int endIndex = 0;
+    //
+    // for (int i = model.length() - 1; i >= 0; i--) {
+    // if (model.charAt(i) == '/' && startIndex == 0) {
+    // startIndex = i + 1;
+    // } else if (model.charAt(i) == '.' && endIndex == 0) {
+    // endIndex = i;
+    // }
+    // }
+    //
+    // String modelStart = model.substring(0, startIndex);
+    // String modelEnd = model.substring(endIndex, model.length());
+    //
+    // model = modelStart + "%d" + modelEnd;
+    // return model;
+    // }
 
     public static String substringBetween(final String str, final String tag) {
         return substringBetween(str, tag, tag);
@@ -91,5 +95,21 @@ public class StringUtils {
             }
         }
         return null;
+    }
+
+    public static String makeChapterName(String fileDirectory, String ChapterNumber) {
+        return fileDirectory + File.separator + ChapterNumber;
+    }
+
+    public static String makeFileName(File fileLocation, String imageNumber) {
+        return fileLocation.getPath() + File.separator + imageNumber + jpgExtension;
+    }
+
+    public static String makeZipName(File chapter) {
+        return chapter.getPath() + zipExtension;
+    }
+
+    public static String makeCbzName(File chapter) {
+        return chapter.getPath() + cbzExtension;
     }
 }

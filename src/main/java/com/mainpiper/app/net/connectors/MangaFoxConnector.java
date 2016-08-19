@@ -1,12 +1,12 @@
 package com.mainpiper.app.net.connectors;
 
-import com.mainpiper.app.net.HtmlConnector;
-import com.mainpiper.app.model.mangas.MangaFox;
-import com.mainpiper.app.util.StringUtils;
+import java.util.Map;
 
 import org.jsoup.Connection;
 
-import java.util.Map;
+import com.mainpiper.app.model.mangas.MangaFox;
+import com.mainpiper.app.net.HtmlConnector;
+import com.mainpiper.app.util.StringUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,35 +28,35 @@ public class MangaFoxConnector extends HtmlConnector {
     private final String mangaUrl;
     private Connection connector;
 
-
     public MangaFoxConnector(MangaFox manga) {
         super(BASE_URL);
 
-        this.mangaName = transformMangaName(manga.getName());
-        this.mangaUrl = MANGA_BASE_URL + this.mangaName;
-        this.rssUrl = MANGA_RSS_URL + this.mangaName + ".xml";
-        this.connector = jsoupConnectionRSS(this.rssUrl);
+        mangaName = transformMangaName(manga.getName());
+        mangaUrl = MANGA_BASE_URL + mangaName;
+        rssUrl = MANGA_RSS_URL + mangaName + ".xml";
+        connector = jsoupConnectionRSS(rssUrl);
     }
 
+    @Override
     public String getSiteUrl() {
         return BASE_URL;
     }
 
     @Override
     protected Map<String, String> getMangaUrls() {
-        //TODO OMG DO ME
+        // TODO OMG DO ME
         return null;
     }
 
     @Override
     protected Map<String, String> getChaptersUrl() {
-        //TODO OMG DO ME
+        // TODO OMG DO ME
         return null;
     }
 
     @Override
     protected Map<String, String> getImageUrls(String chapterNumber) {
-        //TODO OMG DO ME
+        // TODO OMG DO ME
         return null;
     }
 
