@@ -59,11 +59,11 @@ public abstract class AbstractConnector {
         return WEBSITE_GENERIC_URL;
     }
 
-    protected abstract Map<String, String> getMangaUrls();
+    public abstract Map<String, String> getMangaUrls();
 
-    protected abstract Map<String, String> getChaptersUrl();
+    public abstract Map<String, String> getChaptersUrl();
 
-    protected abstract Map<String, String> getImageUrls(String chapterNumber);
+    public abstract Map<String, String> getImageUrls(String chapterNumber);
 
     protected final Map<Chapter, String> CHAPTERS_WITH_ERRORS = new HashMap<Chapter, String>();
 

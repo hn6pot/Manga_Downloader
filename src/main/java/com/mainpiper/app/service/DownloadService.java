@@ -7,7 +7,5 @@ package com.mainpiper.app.service;
 public interface DownloadService {
     void downloadManga();
 
-    void downloadVolume(String volumeNumber);
-
     void downloadChapter(String volumeNumber, String chapterNumber);
 }

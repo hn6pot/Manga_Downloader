@@ -137,12 +137,11 @@ public class JapscanConnector extends HtmlConnector {
         while (it.hasNext()) {
             Element op = it.next();
             result.put(op.text().replace(PAGE, ""), getImage(WEBSITERACINE + op.val()));
-            log.debug("Page {0} with link {1} has been successfully add to the Map", op.text(), op.val());
+            log.debug("Page {} with link {} has been successfully add to the Map", op.text(), op.val());
         }
 
         log.debug("getImagesUrl Ended Properly");
         log.info("We apparently get every image url needed !");
-
         return result;
     }
 

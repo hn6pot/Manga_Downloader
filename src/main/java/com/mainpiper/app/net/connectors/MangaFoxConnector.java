@@ -43,19 +43,19 @@ public class MangaFoxConnector extends HtmlConnector {
     }
 
     @Override
-    protected Map<String, String> getMangaUrls() {
+	public Map<String, String> getMangaUrls() {
         // TODO OMG DO ME
         return null;
     }
 
     @Override
-    protected Map<String, String> getChaptersUrl() {
+	public Map<String, String> getChaptersUrl() {
         // TODO OMG DO ME
         return null;
     }
 
     @Override
-    protected Map<String, String> getImageUrls(String chapterNumber) {
+	public Map<String, String> getImageUrls(String chapterNumber) {
         // TODO OMG DO ME
         return null;
     }

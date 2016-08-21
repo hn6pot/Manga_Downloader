@@ -97,16 +97,12 @@ public class StringUtils {
         return null;
     }
 
-    public static String makeChapterName(String fileDirectory, String ChapterNumber) {
-        return fileDirectory + File.separator + ChapterNumber;
+    public static String makePathconcat(String directory, String file) {
+        return directory + File.separator + file ;
     }
 
     public static String makeFileName(File fileLocation, String imageNumber) {
         return fileLocation.getPath() + File.separator + imageNumber + jpgExtension;
-    }
-
-    public static String makeZipName(File chapter) {
-        return chapter.getPath() + zipExtension;
     }
 
     public static String makeCbzName(File chapter) {
