@@ -98,7 +98,7 @@ public class StringUtils {
     }
 
     public static String makePathconcat(String directory, String file) {
-        return directory + File.separator + file ;
+        return directory + File.separator + file;
     }
 
     public static String makeFileName(File fileLocation, String imageNumber) {
@@ -108,4 +108,5 @@ public class StringUtils {
     public static String makeCbzName(File chapter) {
         return chapter.getPath() + cbzExtension;
     }
+
 }
