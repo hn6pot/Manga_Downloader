@@ -1,5 +1,6 @@
 package com.mainpiper.app.service;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import com.mainpiper.app.factory.GenericConnector;
@@ -20,11 +21,17 @@ public class Service {
         conn = genericConn.getConnector();
         down = new Downloader(mangaName);
         chaptersAvailable = conn.getChaptersUrl();
-
     }
 
     public void downloadManga() {
         log.debug("downloadManga in progress");
+        log.info("Downloading entire Manga");
+        // TODO add multi threading operator
+        // TODO add save + check chapter already download
+        for (Iterator<String> it = chaptersAvailable.keySet().iterator(); it.hasNext();) {
+            downloadChapter(it.next());
+        }
+
     }
 
     public void downloadChapters(String chapterNumbers) {
@@ -33,13 +40,7 @@ public class Service {
         log.info("Downloading chapters : {}", chapterNumbers.replace("-", " "));
         for (int i = 0; i < chapters.length; i++) {
             downloadChapter(chapters[i]);
-
         }
-    }
-
-    public void downloadFromTo(String start, String end) {
-        log.debug("download from to in progress");
-        log.info("Downloading chapters from {} to {}", start, end);
     }
 
     private boolean downloadChapter(String chapterNumber) {
