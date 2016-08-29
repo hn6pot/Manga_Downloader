@@ -20,8 +20,8 @@ import lombok.Setter;
 @Setter
 public class MangaFoxConnector extends HtmlConnector {
 	private static final String BASE_URL = "http://mangafox.me";
-	private static final String MANGA_BASE_URL = "http://mangafox.me/mangas/";
-	private static final String MANGA_RSS_URL = "http://mangafox.me/rss/";
+	private static final String MANGA_BASE_URL = "http://mangafox.me/manga/%s";
+	private static final String MANGA_RSS_BASE_URL = "http://mangafox.me/rss/%s.xml";
 
 	private String mangaName;
 	private final String rssUrl;
@@ -32,8 +32,9 @@ public class MangaFoxConnector extends HtmlConnector {
 		super(BASE_URL);
 
 		mangaName = transformMangaName(manga.getName());
-		mangaUrl = MANGA_BASE_URL + mangaName;
-		rssUrl = MANGA_RSS_URL + mangaName + ".xml";
+
+		mangaUrl = String.format(MANGA_BASE_URL, mangaName);
+		rssUrl = String.format(MANGA_RSS_BASE_URL, mangaName);
 		connector = jsoupConnectionRSS(rssUrl);
 	}
 

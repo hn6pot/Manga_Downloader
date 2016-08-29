@@ -4,6 +4,9 @@ import com.mainpiper.app.factory.GenericConnector;
 import com.mainpiper.app.net.AbstractConnector;
 import com.mainpiper.app.net.Downloader;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Service {
 
 	private final AbstractConnector conn;
@@ -19,14 +22,14 @@ public class Service {
 
 	}
 
-    public void downloadChapters(String chapterNumbers) {
-        String[] chapters = chapterNumbers.split("-");
-        log.debug("downloadChapters in progress");
-        log.info("Downloading chapters : {}", chapterNumbers.replace("-", " "));
-        for (int i = 0; i < chapters.length; i++) {
-            downloadChapter(chapters[i]);
-        }
-    }
+	public void downloadChapters(String chapterNumbers) {
+		String[] chapters = chapterNumbers.split("-");
+		log.debug("downloadChapters in progress");
+		log.info("Downloading chapters : {}", chapterNumbers.replace("-", " "));
+		for (int i = 0; i < chapters.length; i++) {
+			downloadChapter(chapters[i]);
+		}
+	}
 
 	public void downloadFromTo(String start, String end) {
 

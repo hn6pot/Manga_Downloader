@@ -18,7 +18,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 public abstract class AbstractConnector {
 	private final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11";
 
@@ -53,6 +52,7 @@ public abstract class AbstractConnector {
 				.header("Accept-language", HEADER_LANGUAGE)
 				.header("keep-alive", HEADER_KEEP_ALIVE)
 				.timeout(TIME_OUT_IN_MILLIS);
+
 		if (htmlParser) {
 			jsoupConnection.parser(Parser.htmlParser());
 		} else {

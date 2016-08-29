@@ -87,6 +87,7 @@ public class StringUtils {
 		if (str == null || open == null || close == null) {
 			return null;
 		}
+
 		final int start = str.indexOf(open);
 		if (start != -1) {
 			final int end = str.indexOf(close, start + open.length());
@@ -97,7 +98,9 @@ public class StringUtils {
 		return null;
 	}
 
-
+	public static String makePathconcat(String directory, String file) {
+		return directory + File.separator + file;
+	}
 
 	public static String makeFileName(File fileLocation, String imageNumber) {
 		return fileLocation.getPath() + File.separator + imageNumber + jpgExtension;
