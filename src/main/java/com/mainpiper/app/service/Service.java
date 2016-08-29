@@ -21,9 +21,9 @@ public class Service {
 
 	public void downloadChapters(String chapterNumbers) {
 		String[] chapters = chapterNumbers.split("-");
-		for (int i = 0; i < chapters.length; i++){
+		for (int i = 0; i < chapters.length; i++) {
 			downloadChapter(chapters[i]);
-		}		
+		}
 	}
 
 	public void downloadFromTo(String start, String end) {

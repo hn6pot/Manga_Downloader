@@ -8,12 +8,12 @@ import com.mainpiper.app.model.AbstractManga;
  */
 
 public class MangaFox extends AbstractManga {
-    
-	//TODO add volumes ?? 
-    public MangaFox(String mangaName) {
-        super(mangaName);
-        DORSS = true;
-        language = "English";
-    }
-    
+
+	// TODO add volumes ??
+	public MangaFox(String mangaName) {
+		super(mangaName);
+		DORSS = true;
+		language = "English";
+	}
+
 }

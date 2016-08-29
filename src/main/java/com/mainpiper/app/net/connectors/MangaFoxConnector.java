@@ -19,48 +19,48 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MangaFoxConnector extends HtmlConnector {
-    private static final String BASE_URL = "http://mangafox.me";
-    private static final String MANGA_BASE_URL = "http://mangafox.me/mangas/";
-    private static final String MANGA_RSS_URL = "http://mangafox.me/rss/";
+	private static final String BASE_URL = "http://mangafox.me";
+	private static final String MANGA_BASE_URL = "http://mangafox.me/mangas/";
+	private static final String MANGA_RSS_URL = "http://mangafox.me/rss/";
 
-    private String mangaName;
-    private final String rssUrl;
-    private final String mangaUrl;
-    private Connection connector;
+	private String mangaName;
+	private final String rssUrl;
+	private final String mangaUrl;
+	private Connection connector;
 
-    public MangaFoxConnector(MangaFox manga) {
-        super(BASE_URL);
+	public MangaFoxConnector(MangaFox manga) {
+		super(BASE_URL);
 
-        mangaName = transformMangaName(manga.getName());
-        mangaUrl = MANGA_BASE_URL + mangaName;
-        rssUrl = MANGA_RSS_URL + mangaName + ".xml";
-        connector = jsoupConnectionRSS(rssUrl);
-    }
+		mangaName = transformMangaName(manga.getName());
+		mangaUrl = MANGA_BASE_URL + mangaName;
+		rssUrl = MANGA_RSS_URL + mangaName + ".xml";
+		connector = jsoupConnectionRSS(rssUrl);
+	}
 
-    @Override
-    public String getSiteUrl() {
-        return BASE_URL;
-    }
+	@Override
+	public String getSiteUrl() {
+		return BASE_URL;
+	}
 
-    @Override
+	@Override
 	public Map<String, String> getMangaUrls() {
-        // TODO OMG DO ME
-        return null;
-    }
+		// TODO OMG DO ME
+		return null;
+	}
 
-    @Override
+	@Override
 	public Map<String, String> getChaptersUrl() {
-        // TODO OMG DO ME
-        return null;
-    }
+		// TODO OMG DO ME
+		return null;
+	}
 
-    @Override
+	@Override
 	public Map<String, String> getImageUrls(String chapterNumber) {
-        // TODO OMG DO ME
-        return null;
-    }
+		// TODO OMG DO ME
+		return null;
+	}
 
-    public static String transformMangaName(String mangaName) {
-        return StringUtils.deAccent(mangaName).replaceAll(" ", "_").replaceAll("[^0-9a-zA-Z_]", "").toLowerCase();
-    }
+	public static String transformMangaName(String mangaName) {
+		return StringUtils.deAccent(mangaName).replaceAll(" ", "_").replaceAll("[^0-9a-zA-Z_]", "").toLowerCase();
+	}
 }

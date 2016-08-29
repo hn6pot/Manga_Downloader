@@ -12,16 +12,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class AbstractManga {
-    protected String name;
-    protected static String language;
+	protected String name;
+	protected static String language;
 
-    protected Set<Chapter> chapter;
-    
-    protected static Boolean DORSS;
-    
-    public AbstractManga(String mangaName) {
-        this.name = mangaName;
-    }
+	protected Set<Chapter> chapter;
+
+	protected static Boolean DORSS;
+
+	public AbstractManga(String mangaName) {
+		this.name = mangaName;
+	}
 
 	public static String getLanguage() {
 		return language;
@@ -38,6 +38,5 @@ public abstract class AbstractManga {
 	public static void setDORSS(Boolean dORSS) {
 		DORSS = dORSS;
 	}
-    
 
 }
