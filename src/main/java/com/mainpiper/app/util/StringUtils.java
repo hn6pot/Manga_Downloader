@@ -97,9 +97,7 @@ public class StringUtils {
 		return null;
 	}
 
-	public static String makePathconcat(String directory, String file) {
-		return directory + File.separator + file;
-	}
+
 
 	public static String makeFileName(File fileLocation, String imageNumber) {
 		return fileLocation.getPath() + File.separator + imageNumber + jpgExtension;
