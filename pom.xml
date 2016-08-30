@@ -38,7 +38,6 @@
 			<version>1.48</version>
 		</dependency>
 
-<<<<<<< 169f54308b15dfebf3100ba039eaacfef061df4e
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -52,28 +51,6 @@
             <version>1.7.21</version>
         </dependency>
     </dependencies>
-=======
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.10</version>
-		</dependency>
->>>>>>> Change Cli and add GenericConnector
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-
-	</dependencies>
 
 	<build>
 		<plugins>
