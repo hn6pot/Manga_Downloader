@@ -1,11 +1,10 @@
-package com.mainpiper.app.model.mangas;
+package com.mainpiper.app.model;
 
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.mainpiper.app.enums.Language;
 import com.mainpiper.app.enums.MangaWebsite;
-import com.mainpiper.app.model.Chapter;
 
 public class Manga {
 

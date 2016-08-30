@@ -1,6 +1,6 @@
 package com.mainpiper.app.enums;
 
-import com.mainpiper.app.exceptions.UnknownSourceException;
+import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.net.connectors.JapscanConnector;
 import com.mainpiper.app.net.connectors.LelScanConnector;
 import com.mainpiper.app.net.connectors.LireScanConnector;
@@ -32,7 +32,7 @@ public enum MangaWebsite {
 				return mw;
 			}
 		}
-		throw new UnknownSourceException();
+		throw new TerminateBatchException();
 	}
 
 	@Override
