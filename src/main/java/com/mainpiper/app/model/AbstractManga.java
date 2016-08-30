@@ -15,7 +15,7 @@ public abstract class AbstractManga {
 	protected String name;
 	protected static String language;
 
-	protected Set<Chapter> chapter;
+	protected Set<Chapter> chapters;
 
 	protected static Boolean DORSS;
 

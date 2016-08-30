@@ -1,11 +1,10 @@
-package com.mainpiper.app.tests.poubelle;
+package com.mainpiper.app.tests.poubelle.sapphire;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mainpiper.app.net.AbstractConnector;
+import com.mainpiper.app.net.Connector;
 import com.mainpiper.app.net.connectors.JapscanConnector;
 import com.mainpiper.app.net.connectors.LelScanConnector;
 
@@ -17,7 +16,7 @@ public class testConnector {
 
 	private static class testGenericConnector {
 		// TODO rename class
-		private AbstractConnector conn;
+		private Connector conn;
 		private static Map<String, Class<?>> m;
 
 		private static void mapGeneration() {
@@ -29,7 +28,7 @@ public class testConnector {
 
 		public testGenericConnector(String mangaName, String webSite) {
 			mapGeneration();
-			AbstractConnector conn = getConnector(mangaName, getConnectorClass(webSite));
+			Connector conn = getConnector(mangaName, getConnectorClass(webSite));
 			this.conn = conn;
 		}
 
@@ -50,10 +49,10 @@ public class testConnector {
 
 		}
 
-		private static AbstractConnector getConnector(String mangaName, Class<?> connectorClass) {
+		private static Connector getConnector(String mangaName, Class<?> connectorClass) {
 			try {
 				Constructor<?> cons = connectorClass.getConstructor(String.class);
-				AbstractConnector t = (AbstractConnector) cons.newInstance(mangaName);
+				Connector t = (Connector) cons.newInstance(mangaName);
 				return t;
 			} catch (Exception e) {
 				log.error("Fuck this shit, Human error ! Let's check your fucking commit !", e);

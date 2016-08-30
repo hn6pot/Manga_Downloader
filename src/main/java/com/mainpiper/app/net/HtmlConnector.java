@@ -5,7 +5,7 @@ import org.jsoup.Connection;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class HtmlConnector extends AbstractConnector {
+public abstract class HtmlConnector extends Connector {
 
 	protected final Connection connection;
 

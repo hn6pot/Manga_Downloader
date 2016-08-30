@@ -5,10 +5,8 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 
-import com.mainpiper.app.enums.MangaWebsite;
-import com.mainpiper.app.service.DownloadService;
+import com.mainpiper.app.service.Service;
 import com.mainpiper.app.service.impl.MangaFoxDowloadService;
-import com.mainpiper.app.util.StringUtils;
 
 /**
  * @author Main Piper Dev
@@ -19,7 +17,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		CommandLine commandLine = null;
-		DownloadService ds = null;
+		Service service = null;
 		String mangaName = null;
 
 		try {
@@ -29,9 +27,11 @@ public class Main {
 			printUsageAndExit("Wrong usage");
 		}
 
-		if (args.length > 0 && StringUtils.isNotEmpty(args[0]) && commandLine != null) {
+		if (args.length > 0) {
 			// args[0] is the manga name, dumbass
 			mangaName = args[0];
+
+			service = new Service(mangaName);
 
 			if (commandLine.hasOption(CliOptions.OPT_HELP)) {
 				printUsageAndExit("Help");
@@ -71,14 +71,5 @@ public class Main {
 		hf.setWidth(768);
 		hf.printHelp("manga_downloader <mangas name>", CliOptions.getInstance(), true);
 		System.exit(1);
-	}
-
-	private static DownloadService getDownloadServiceByWebsite(String ws, String mangaName) {
-		if (MangaWebsite.MANGAFOX.getCliShortcut().equalsIgnoreCase(ws)) {
-			return null;
-			// new MangaFoxDowloadService(mangaName);
-		}
-
-		return null;
 	}
 }
