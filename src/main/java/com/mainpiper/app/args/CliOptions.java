@@ -12,7 +12,6 @@ public class CliOptions extends Options {
     public static final String OPT_CHAPTER = "c";
     public static final String OPT_HELP = "help";
     public static final String OPT_VERSION = "version";
-    public static final String DEFAULT_DOWNLOAD_DIRECTORY = "/Download";
 
     private static CliOptions instance = new CliOptions();
 

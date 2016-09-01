@@ -1,12 +1,20 @@
 package com.mainpiper.app.main;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.io.FileUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mainpiper.app.args.CliOptions;
+import com.mainpiper.app.args.Config;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.service.Service;
 
@@ -28,6 +36,20 @@ public class Main {
             if (args.length > 0) {
                 mangaName = args[0];
 
+                File t = new File("input/test.txt");
+                Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+                String jsonContent = new String();
+                try {
+                    jsonContent = FileUtils.readFileToString(t, Charset.forName("UTF-8"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Config conf = GSON.fromJson(jsonContent, Config.class);
+                conf.extendConfig(commandLine);
+                conf.displayDebug();
+
                 // elle est pas nul elle vaut la valeur cli de source qui par default est nul!
                 service = new Service(mangaName, null);
 
@@ -38,7 +60,7 @@ public class Main {
                 }
 
                 if (commandLine.hasOption(CliOptions.OPT_VOLUME) && commandLine.hasOption(CliOptions.OPT_CHAPTER)) {
-                    service.downloadChapters(commandLine.getOptionValue(CliOptions.OPT_CHAPTER));
+                    service.downloadChapters();
                 } else {
                     service.downloadManga();
                 }

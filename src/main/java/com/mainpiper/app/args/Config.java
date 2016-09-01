@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Config {
 
     private String scriptName;
+    private String defaultDownloadDirectory = "Download";
 
     private CommandLine cli;
 

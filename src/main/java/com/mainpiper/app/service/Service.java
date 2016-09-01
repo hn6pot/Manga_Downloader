@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.mainpiper.app.args.CliOptions;
+import com.mainpiper.app.args.Config;
 import com.mainpiper.app.factory.ConnectorFactory;
 import com.mainpiper.app.memory.JsonManager;
 import com.mainpiper.app.model.Manga;
@@ -20,11 +21,13 @@ public class Service {
     private final Downloader downloader;
     private final JsonManager jsonManager;
     private final Map<String, String> chaptersAvailable;
+    private final Config conf;
 
-    public Service(String mangaName, String webSite) {
-        jsonManager = new JsonManager(mangaName, webSite, CliOptions.DEFAULT_DOWNLOAD_DIRECTORY);
+    public Service(String mangaName, Config conf) {
+        this.conf = conf;
+        jsonManager = new JsonManager(mangaName, conf.getCli().getWebSite(), conf.getDefaultDownloadDirectory());
         manga = jsonManager.getManga();
-        connector = ConnectorFactory.createConnector(this.manga.getName(), this.manga.getSource());
+        connector = ConnectorFactory.createConnector(manga.getName(), manga.getSource());
         downloader = new Downloader(mangaName);
         chaptersAvailable = connector.getChaptersUrl();
     }
@@ -40,7 +43,8 @@ public class Service {
 
     }
 
-    public void downloadChapters(String chapterNumbers) {
+    public void downloadChapters() {
+        String chapterNumbers = conf.getCli().getOptionValue(CliOptions.OPT_CHAPTER);
         String[] chapters = chapterNumbers.split("-");
         log.debug("downloadChapters in progress");
         log.info("Downloading chapters : {}", chapterNumbers.replace("-", " "));
