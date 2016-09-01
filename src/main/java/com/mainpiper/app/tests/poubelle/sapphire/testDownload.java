@@ -1,9 +1,8 @@
-package com.mainpiper.app.tests.poubelle;
+package com.mainpiper.app.tests.poubelle.sapphire;
 
 import java.util.HashMap;
 
 import com.mainpiper.app.net.Downloader;
-import com.sun.javafx.collections.MappingChange.Map;
 
 public class testDownload {
 	private static final String mangaName = "one-piece";

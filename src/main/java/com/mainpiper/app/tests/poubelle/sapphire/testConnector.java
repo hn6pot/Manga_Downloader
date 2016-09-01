@@ -43,7 +43,7 @@ public class testConnector {
 			try {
 				result = m.get(webSite);
 			} catch (Exception e) {
-				log.error("WebSite unknown !");
+				// log.error("WebSite unknown !");
 			}
 			return result;
 
@@ -55,7 +55,8 @@ public class testConnector {
 				Connector t = (Connector) cons.newInstance(mangaName);
 				return t;
 			} catch (Exception e) {
-				log.error("Fuck this shit, Human error ! Let's check your fucking commit !", e);
+				// log.error("Fuck this shit, Human error ! Let's check your
+				// fucking commit !", e);
 				return null;
 			}
 		}
