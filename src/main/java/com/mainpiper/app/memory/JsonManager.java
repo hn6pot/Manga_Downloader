@@ -47,9 +47,12 @@ public class JsonManager {
     }
 
     private Manga getManga(String mangaName, String webSource) {
+        Manga result = null;
         if (mangaJson.exists()) {
-            return getMangaFromJson();
-
+            result = getMangaFromJson();
+            if (webSource != null) {
+                result.setSource(webSource);
+            }
         } else {
             log.info("First Download of : {}", mangaName);
             if (webSource == null) {
@@ -57,9 +60,10 @@ public class JsonManager {
                 throw new TerminateBatchException();
             } else {
                 log.info("First Download of : {}", mangaName);
-                return new Manga(mangaName, webSource);
+                result = new Manga(mangaName, webSource);
             }
         }
+        return result;
     }
 
     private Manga getMangaFromJson() {

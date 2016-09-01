@@ -6,57 +6,30 @@ import java.util.TreeSet;
 import com.mainpiper.app.enums.Language;
 import com.mainpiper.app.enums.MangaWebsite;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Manga {
 
-	private String name;
-	private String link;
-	private Language language = Language.FRENCH;
+    private String name;
+    private String link;
+    private Language language = Language.FRENCH;
 
-	private MangaWebsite source = MangaWebsite.LIRESCAN;
+    private MangaWebsite source = MangaWebsite.LIRESCAN;
 
-	private Set<Chapter> chapters;
+    private Set<Chapter> chapters;
 
-	public Manga(String name, String webSite) {
-		this.name = name;
-		this.link = new String();
-		this.chapters = new TreeSet<Chapter>();
-		this.source = MangaWebsite.getSource(webSite);
-	}
+    public Manga(String name, String webSite) {
+        this.name = name;
+        link = new String();
+        chapters = new TreeSet<Chapter>();
+        source = MangaWebsite.getSource(webSite);
+    }
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
-
-	public Set<Chapter> getChapters() {
-		return chapters;
-	}
-
-	public void setChapters(Set<Chapter> chapters) {
-		this.chapters = chapters;
-	}
-
-	public MangaWebsite getSource() {
-		return this.source;
-	}
+    public void setSource(String webSite) {
+        source = MangaWebsite.getSource(webSite);
+    }
 
 }
