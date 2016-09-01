@@ -1,4 +1,4 @@
-package com.mainpiper.app.main;
+package com.mainpiper.app.args;
 
 import com.beust.jcommander.Parameter;
 import com.mainpiper.app.enums.MangaWebsite;

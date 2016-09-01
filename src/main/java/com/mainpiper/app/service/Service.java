@@ -3,8 +3,8 @@ package com.mainpiper.app.service;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.factory.ConnectorFactory;
-import com.mainpiper.app.main.CliOptions;
 import com.mainpiper.app.memory.JsonManager;
 import com.mainpiper.app.model.Manga;
 import com.mainpiper.app.net.Connector;

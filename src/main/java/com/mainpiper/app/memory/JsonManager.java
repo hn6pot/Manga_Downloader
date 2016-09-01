@@ -41,7 +41,7 @@ public class JsonManager {
             FileUtils.writeStringToFile(mangaJson, GSON.toJson(manga), Charset.forName(DEFAULT_CHARSET));
         } catch (IOException ex) {
             log.error("Unable to create or update the json file.\n, ", ex);
-            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED,
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_ERROR_DURING_JSON_UPDATE,
                     "Unable to create or update the json file");
         } catch (Exception e) {
             log.debug("Unexpected Error occured during the Json file Update: ", e);

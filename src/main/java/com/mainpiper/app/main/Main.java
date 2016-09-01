@@ -5,6 +5,7 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 
+import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.service.Service;
 import com.mainpiper.app.service.impl.MangaFoxDowloadService;
 
