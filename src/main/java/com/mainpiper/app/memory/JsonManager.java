@@ -41,8 +41,12 @@ public class JsonManager {
             FileUtils.writeStringToFile(mangaJson, GSON.toJson(manga), Charset.forName(DEFAULT_CHARSET));
         } catch (IOException ex) {
             log.error("Unable to create or update the json file.\n, ", ex);
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED,
+                    "Unable to create or update the json file");
         } catch (Exception e) {
-            log.error("Unexpected Error occured during the Json file Update: ", e);
+            log.debug("Unexpected Error occured during the Json file Update: ", e);
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
+                    "Unexpected Error occured during the Json file Update", e);
         }
     }
 
@@ -56,8 +60,8 @@ public class JsonManager {
         } else {
             log.info("First Download of : {}", mangaName);
             if (webSource == null) {
-                log.error("First Download of : {}, you need to provide Web Sources", mangaName);
-                throw new TerminateBatchException();
+                String error = "First Download of : " + mangaName + ", you need to provide Web Sources";
+                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED, error);
             } else {
                 log.info("First Download of : {}", mangaName);
                 result = new Manga(mangaName, webSource);
@@ -71,11 +75,12 @@ public class JsonManager {
         try {
             jsonContent = FileUtils.readFileToString(mangaJson, Charset.forName(DEFAULT_CHARSET));
         } catch (IOException ex) {
-            log.error("Cannot read the Json file content", ex);
-            throw new TerminateBatchException();
+            log.debug("Cannot read the Json file content", ex);
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED,
+                    "Cannot read the Json file content");
         } catch (Exception e) {
             log.error("Unexpected Error occured : ", e);
-            throw new TerminateBatchException();
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, e);
         }
         return GSON.fromJson(jsonContent, Manga.class);
     }
