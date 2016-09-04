@@ -1,45 +1,31 @@
 package com.mainpiper.app.model;
 
+import lombok.Getter;
+
+@Getter
 public class Chapter implements Comparable<Chapter> {
 
-	private String number;
+    private final String number;
 
-	private int pagesCount;
+    private final int pagesCount;
 
-	private String associatedVolume;
+    private final String associatedVolume;
 
-	public Chapter(String number, String associatedVolume) {
-		this.number = number;
-		this.associatedVolume = associatedVolume;
-	}
+    public Chapter(String number) {
+        this.number = number;
+        pagesCount = 0;
+        associatedVolume = null;
+    }
 
-	public String getNumber() {
-		return number;
-	}
+    public Chapter(String number, String associatedVolume) {
+        this.number = number;
+        pagesCount = 0;
+        this.associatedVolume = associatedVolume;
+    }
 
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public int getPagesCount() {
-		return pagesCount;
-	}
-
-	public void setPagesCount(int pagesCount) {
-		this.pagesCount = pagesCount;
-	}
-
-	public String getAssociatedVolume() {
-		return associatedVolume;
-	}
-
-	public void setAssociatedVolume(String associatedVolume) {
-		this.associatedVolume = associatedVolume;
-	}
-
-	@Override
-	public int compareTo(Chapter o) {
-		// TODO implement correct 'compareTo' method
-		return 0;
-	}
+    @Override
+    public int compareTo(Chapter o) {
+        // TODO implement correct 'compareTo' method
+        return 0;
+    }
 }

@@ -60,7 +60,7 @@ public class MangaFoxConnector extends HtmlConnector {
         return null;
     }
 
-    public static String transformMangaName(String mangaName) {
+    protected String transformMangaName(String mangaName) {
         return StringUtils.deAccent(mangaName).replaceAll(" ", "_").replaceAll("[^0-9a-zA-Z_]", "").toLowerCase();
     }
 }

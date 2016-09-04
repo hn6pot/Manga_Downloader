@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Service {
 
-    private final Manga manga;
     private final Connector connector;
     private final Downloader downloader;
     private final JsonManager jsonManager;
@@ -25,8 +24,8 @@ public class Service {
 
     public Service(String mangaName, Config conf) {
         this.conf = conf;
-        jsonManager = new JsonManager(mangaName, conf.getCli().getWebSite(), conf.getDefaultDownloadDirectory());
-        manga = jsonManager.getManga();
+        jsonManager = new JsonManager(mangaName, conf.getCli().getWebSite(), conf.getDefaultDownloadDirectory(), false);
+        Manga manga = jsonManager.getManga();
         connector = ConnectorFactory.createConnector(manga.getName(), manga.getSource());
         downloader = new Downloader(mangaName);
         chaptersAvailable = connector.getChaptersUrl();

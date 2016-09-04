@@ -11,6 +11,8 @@ public class Config {
 
     private String scriptName;
     private String defaultDownloadDirectory = "Download";
+    private String defaultSource = "mfox";
+    private String apiUsername = "toto";
 
     private CommandLine cli;
 

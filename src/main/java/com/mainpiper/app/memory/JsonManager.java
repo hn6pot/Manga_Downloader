@@ -3,13 +3,18 @@ package com.mainpiper.app.memory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mainpiper.app.exceptions.TerminateBatchException;
+import com.mainpiper.app.model.Chapter;
 import com.mainpiper.app.model.Manga;
+import com.mainpiper.app.util.StringUtils;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,25 +23,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JsonManager {
 
-    private final static String json = "Json.txt";
     private final static String DEFAULT_CHARSET = "UTF-8";
 
     private final Gson GSON;
+    private final String defaultDirectory;
     private final File mangaJson;
     private final Manga manga;
 
-    public JsonManager(String mangaName, String WebSources, String defaultDirectory) {
+    public JsonManager(String mangaName, String WebSources, String defaultDirectory, Boolean checkDirectory) {
         GSON = new GsonBuilder().setPrettyPrinting().create();
-
-        mangaJson = new File(getPath(mangaName, defaultDirectory));
+        this.defaultDirectory = defaultDirectory;
+        mangaJson = new File(StringUtils.getPath(mangaName, defaultDirectory));
         manga = getManga(mangaName, WebSources);
+        if (checkDirectory) {
+            uploadMangaFromDirectory();
+        }
     }
 
-    private static String getPath(String mangaName, String defaultDirectory) {
-        return defaultDirectory + File.separator + mangaName + File.separator + json;
-    }
-
-    public void updateJSON() {
+    public void updateJSON(List<Chapter> chapters) {
+        log.debug("Manga object update in progress");
+        manga.updateChapters(chapters);
         try {
             FileUtils.writeStringToFile(mangaJson, GSON.toJson(manga), Charset.forName(DEFAULT_CHARSET));
         } catch (IOException ex) {
@@ -48,6 +54,13 @@ public class JsonManager {
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
                     "Unexpected Error occured during the Json file Update", e);
         }
+        log.info("Manga update ended without issues");
+    }
+
+    public void uploadMangaFromDirectory() {
+        String path = StringUtils.getDefaultPath(manga.getName(), defaultDirectory);
+        File defaultDirectory = new File(path);
+        updateJSON(checkDirectory(defaultDirectory));
     }
 
     private Manga getManga(String mangaName, String webSource) {
@@ -83,6 +96,27 @@ public class JsonManager {
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, e);
         }
         return GSON.fromJson(jsonContent, Manga.class);
+    }
+
+    private List<Chapter> checkDirectory(File currentFile) {
+        List<Chapter> result = new ArrayList<Chapter>();
+        if (currentFile.isDirectory()) {
+            File[] files = currentFile.listFiles();
+            for (File f : files) {
+                result.addAll(checkDirectory(f));
+            }
+        } else {
+            String ext = FilenameUtils.getExtension(currentFile.getPath());
+            if (ext == "cbz") {
+                // TODO add mangas download without cbz format
+                Chapter chapter = new Chapter(currentFile.getName());
+                result.add(chapter);
+            } else {
+                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_STRANGE_FILE_FOUNDED,
+                        "An unknown file has been founded : " + currentFile.getAbsolutePath());
+            }
+        }
+        return result;
     }
 
 }

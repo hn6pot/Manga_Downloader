@@ -51,7 +51,7 @@ public class Main {
                 conf.displayDebug();
 
                 // elle est pas nul elle vaut la valeur cli de source qui par default est nul!
-                service = new Service(mangaName, null);
+                service = new Service(mangaName, conf);
 
                 if (commandLine.hasOption(CliOptions.OPT_HELP)) {
                     printUsageAndExit("Help");

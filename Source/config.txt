@@ -1,3 +1,4 @@
 {
-  "defaultDownloadDirectory": "Download"
+  "defaultDownloadDirectory": "Download",
+  "apiUsername": "mamaman"
 }
