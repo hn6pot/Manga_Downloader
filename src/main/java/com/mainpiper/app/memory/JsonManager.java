@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mainpiper.app.enums.MangaWebsite;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.model.Chapter;
 import com.mainpiper.app.model.Manga;
@@ -30,13 +31,13 @@ public class JsonManager {
     private final File mangaJson;
     private final Manga manga;
 
-    public JsonManager(String mangaName, String WebSources, String defaultDirectory, Boolean checkDirectory) {
+    public JsonManager(String mangaName, MangaWebsite WebSources, String defaultDirectory, Boolean checkDirectory) {
         GSON = new GsonBuilder().setPrettyPrinting().create();
         this.defaultDirectory = defaultDirectory;
         mangaJson = new File(StringUtils.getPath(mangaName, defaultDirectory));
         manga = getManga(mangaName, WebSources);
         if (checkDirectory) {
-            uploadMangaFromDirectory();
+            updateMangaFromDirectory();
         }
     }
 
@@ -54,16 +55,16 @@ public class JsonManager {
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
                     "Unexpected Error occured during the Json file Update", e);
         }
-        log.info("Manga update ended without issues");
+        log.info("Manga update ended without issues, json file has been overwrite");
     }
 
-    public void uploadMangaFromDirectory() {
+    public void updateMangaFromDirectory() {
         String path = StringUtils.getDefaultPath(manga.getName(), defaultDirectory);
         File defaultDirectory = new File(path);
         updateJSON(checkDirectory(defaultDirectory));
     }
 
-    private Manga getManga(String mangaName, String webSource) {
+    private Manga getManga(String mangaName, MangaWebsite webSource) {
         Manga result = null;
         if (mangaJson.exists()) {
             result = getMangaFromJson();
@@ -118,5 +119,4 @@ public class JsonManager {
         }
         return result;
     }
-
 }

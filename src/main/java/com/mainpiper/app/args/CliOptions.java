@@ -7,11 +7,13 @@ import com.mainpiper.app.enums.MangaWebsite;
 
 public class CliOptions extends Options {
 
+    private static final long serialVersionUID = 1L;
     public static final String OPT_SOURCE = "s";
     public static final String OPT_VOLUME = "v";
     public static final String OPT_CHAPTER = "c";
     public static final String OPT_HELP = "help";
     public static final String OPT_VERSION = "version";
+    public static final String defaultValue = "Default";
 
     private static CliOptions instance = new CliOptions();
 

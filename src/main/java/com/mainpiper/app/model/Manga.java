@@ -25,15 +25,15 @@ public class Manga {
 
     private Set<Chapter> chapters;
 
-    public Manga(String name, String webSite) {
+    public Manga(String name, MangaWebsite webSite) {
         this.name = name;
         link = new String();
         chapters = new TreeSet<Chapter>();
-        source = MangaWebsite.getSource(webSite);
+        source = webSite;
     }
 
-    public void setSource(String webSite) {
-        source = MangaWebsite.getSource(webSite);
+    public void setSource(MangaWebsite webSite) {
+        source = webSite;
     }
 
     public void updateChapters(List<Chapter> chapters) {
