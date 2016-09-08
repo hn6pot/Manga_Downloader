@@ -35,8 +35,9 @@ public class Main {
 
             if (args.length > 0) {
                 mangaName = args[0];
+                String configPath = ClassLoader.getSystemResource("config").getFile();
 
-                File t = new File("input/test.txt");
+                File t = new File(configPath);
                 Gson GSON = new GsonBuilder().setPrettyPrinting().create();
                 String jsonContent = new String();
                 try {
@@ -76,7 +77,6 @@ public class Main {
             log.error("Unknown exception: ", ex);
             System.exit(TerminateBatchException.EXIT_CODE_UNKNOWN);
         }
-
     }
 
     private static void printVersion() {
