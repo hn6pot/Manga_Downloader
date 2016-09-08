@@ -22,73 +22,82 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
-    public static final String APP_VERSION = "1.0";
+	public static final String APP_VERSION = "1.0";
 
-    public static void main(String[] args) {
-        CommandLine commandLine = null;
-        Service service = null;
-        String mangaName = null;
+	public static void main(String[] args) {
+		CommandLine commandLine = null;
+		Service service = null;
+		String mangaName = null;
 
-        try {
-            CommandLineParser cliParser = new DefaultParser();
-            commandLine = cliParser.parse(CliOptions.getInstance(), args);
+		try {
+			CommandLineParser cliParser = new DefaultParser();
+			commandLine = cliParser.parse(CliOptions.getInstance(), args);
 
-            if (args.length > 0) {
-                mangaName = args[0];
-                String configPath = ClassLoader.getSystemResource("config").getFile();
+			if (args.length > 0) {
+				mangaName = args[0];
+				String configPath = ClassLoader.getSystemResource("config").getFile();
 
-                File t = new File(configPath);
-                Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-                String jsonContent = new String();
-                try {
-                    jsonContent = FileUtils.readFileToString(t, Charset.forName("UTF-8"));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Config conf = GSON.fromJson(jsonContent, Config.class);
-                conf.extendConfig(commandLine);
-                conf.displayDebug();
+				File t = new File(configPath);
+				Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+				String jsonContent = new String();
+				try {
+					jsonContent = FileUtils.readFileToString(t, Charset.forName("UTF-8"));
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				Config conf = GSON.fromJson(jsonContent, Config.class);
+				conf.extendConfig(commandLine);
+				conf.displayDebug();
 
-                service = new Service(mangaName, conf);
+				service = new Service(mangaName, conf);
 
-                if (commandLine.hasOption(CliOptions.OPT_HELP)) {
-                    printUsageAndExit("Help");
-                } else if (commandLine.hasOption(CliOptions.OPT_VERSION)) {
-                    printVersion();
-                }
+				Boolean cliHasHelp = commandLine.hasOption(CliOptions.OPT_HELP);
+				Boolean cliHasVersion = commandLine.hasOption(CliOptions.OPT_VERSION);
+				Boolean cliHasChapter = commandLine.hasOption(CliOptions.OPT_CHAPTER);
 
-                if (commandLine.hasOption(CliOptions.OPT_VOLUME) && commandLine.hasOption(CliOptions.OPT_CHAPTER)) {
-                    service.downloadChapters();
-                } else {
-                    service.downloadManga();
-                }
-            } else {
-                printUsageAndExit("Wrong usage");
-            }
-        } catch (ParseException e) {
-            log.debug("Erreur in the Cli parsing : ", e);
-            printUsageAndExit("Wrong usage");
-        } catch (TerminateBatchException ex) {
-            log.error("Batch failure with code: {}\n", ex.getExitCode(), ex);
-            System.exit(ex.getExitCode());
-        } catch (Exception ex) {
-            log.error("Unknown exception: ", ex);
-            System.exit(TerminateBatchException.EXIT_CODE_UNKNOWN);
-        }
-    }
+				Boolean cliCheckValue = commandLine.hasOption(CliOptions.OPT_CHECK) ? Boolean.valueOf(commandLine
+						.getOptionValue(CliOptions.OPT_CHECK)) : true;
 
-    private static void printVersion() {
-        System.out.println("Manga downloader v" + Main.APP_VERSION);
-        System.exit(0);
-    }
+				Boolean cliCheckApiValue = commandLine.hasOption(CliOptions.OPT_CHECK_API) ? Boolean.valueOf(commandLine
+						.getOptionValue(CliOptions.OPT_CHECK_API)) : false;
 
-    private static void printUsageAndExit(String errorMsg) {
-        System.out.println(errorMsg);
-        HelpFormatter hf = new HelpFormatter();
-        hf.setWidth(768);
-        hf.printHelp("manga_downloader <mangas name>", CliOptions.getInstance(), true);
-        System.exit(1);
-    }
+				if (cliHasHelp) {
+					printUsageAndExit("USAGE");
+				} else if (cliHasVersion) {
+					printVersion();
+				} else if (cliHasChapter) {
+					// Renvoie un tableau de String, pas besoin de splitter
+					service.downloadChapters(commandLine.getOptionValues(CliOptions.OPT_CHAPTER));
+				} else {
+					service.downloadManga();
+				}
+			} else {
+				printUsageAndExit("Wrong usage");
+			}
+		} catch (ParseException e) {
+			log.debug("Erreur in the Cli parsing : ", e);
+			printUsageAndExit("Wrong usage");
+		} catch (TerminateBatchException ex) {
+			log.error("Batch failure with code: {}\n", ex.getExitCode(), ex);
+			System.exit(ex.getExitCode());
+		} catch (Exception ex) {
+			log.error("Unknown exception: ", ex);
+			System.exit(TerminateBatchException.EXIT_CODE_UNKNOWN);
+		}
+	}
+
+	private static void printVersion() {
+		System.out.println("Manga downloader v" + Main.APP_VERSION);
+		System.exit(0);
+	}
+
+	private static void printUsageAndExit(String errorMsg) {
+		System.out.println(errorMsg);
+		HelpFormatter hf = new HelpFormatter();
+		hf.setWidth(768);
+		hf.printHelp("manga_downloader <mangas name>", CliOptions.getInstance(), true);
+		System.exit(1);
+	}
 }
