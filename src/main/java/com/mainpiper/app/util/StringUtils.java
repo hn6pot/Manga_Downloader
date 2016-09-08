@@ -12,12 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StringUtils {
 
-    private final static char dot = '.';
-    private final static String jpgExtension = ".jpg";
-    private final static String zipExtension = ".zip";
-    private final static String cbzExtension = ".cbz";
+    public final static char dot = '.';
+    public final static String jpgExtension = ".jpg";
+    public final static String zipExtension = ".zip";
+    public final static String cbzExtension = ".cbz";
 
     private final static String json = "Json.txt";
+    private final static String content = "content";
 
     // TODO -> Move in MangaFox class
 
@@ -123,6 +124,6 @@ public class StringUtils {
     }
 
     public static String getDefaultPath(String mangaName, String defaultDirectory) {
-        return defaultDirectory + File.separator + mangaName;
+        return defaultDirectory + File.separator + mangaName + File.separator + content;
     }
 }

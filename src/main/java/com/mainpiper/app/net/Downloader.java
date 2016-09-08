@@ -24,15 +24,12 @@ public class Downloader {
 
     private static final byte[] buffer = new byte[1024];
 
-    // TODO add proper file managment
-    private final static String fileDirectory = "output/";
-
     private final String mangaName;
     private final File mangaDirectory;
 
-    public Downloader(String mangaName) {
+    public Downloader(String mangaName, String fileDirectory) {
         this.mangaName = mangaName;
-        mangaDirectory = new File(StringUtils.makePathconcat(fileDirectory, mangaName));
+        mangaDirectory = new File(StringUtils.getDefaultPath(mangaName, fileDirectory));
         log.debug("Downloader for : {} initialization ended properly", this.mangaName);
     }
 
@@ -48,7 +45,7 @@ public class Downloader {
             }
             for (Iterator<String> it = chapterContent.keySet().iterator(); it.hasNext();) {
                 String imageNumber = it.next();
-                log.debug("Downloading image {}", imageNumber);
+                log.trace("Downloading image {}", imageNumber);
                 String imagePath = StringUtils.makeFileName(chapter, imageNumber);
                 FileUtils.copyURLToFile(new URL(chapterContent.get(imageNumber)), new File(imagePath),
                         TIME_OUT_IN_MILLIS * 2, TIME_OUT_IN_MILLIS * 2);
@@ -89,7 +86,7 @@ public class Downloader {
             File[] listOfFiles = chapter.listFiles();
             for (int i = 0; i < listOfFiles.length; i++) {
                 String temp = listOfFiles[i].getPath();
-                log.debug("File Added : {}", temp);
+                log.trace("File Added : {}", temp);
                 ZipEntry ze = new ZipEntry(temp);
                 zos.putNextEntry(ze);
 

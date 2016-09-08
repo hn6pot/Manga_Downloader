@@ -72,7 +72,6 @@ public class JsonManager {
                 result.setSource(webSource);
             }
         } else {
-            log.info("First Download of : {}", mangaName);
             if (webSource == null) {
                 String error = "First Download of : " + mangaName + ", you need to provide Web Sources";
                 throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED, error);
@@ -100,21 +99,27 @@ public class JsonManager {
     }
 
     private List<Chapter> checkDirectory(File currentFile) {
+        log.trace("Directory checked : {}", currentFile);
         List<Chapter> result = new ArrayList<Chapter>();
-        if (currentFile.isDirectory()) {
-            File[] files = currentFile.listFiles();
-            for (File f : files) {
-                result.addAll(checkDirectory(f));
-            }
-        } else {
-            String ext = FilenameUtils.getExtension(currentFile.getPath());
-            if (ext == "cbz") {
-                // TODO add mangas download without cbz format
-                Chapter chapter = new Chapter(currentFile.getName());
-                result.add(chapter);
+        if (currentFile.exists()) {
+            if (currentFile.isDirectory()) {
+                File[] files = currentFile.listFiles();
+                for (File f : files) {
+                    result.addAll(checkDirectory(f));
+                }
             } else {
-                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_STRANGE_FILE_FOUNDED,
-                        "An unknown file has been founded : " + currentFile.getAbsolutePath());
+                String ext = FilenameUtils.getExtension(currentFile.getPath());
+                log.trace("Extension founded : {}", ext);
+                if (ext.equals("cbz")) {
+                    // TODO add mangas download without cbz format
+                    String chapterNumber = currentFile.getName().replace(StringUtils.cbzExtension, "");
+                    Chapter chapter = new Chapter(chapterNumber);
+                    log.trace("Chapter founded : {}", chapterNumber);
+                    result.add(chapter);
+                } else {
+                    throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_STRANGE_FILE_FOUNDED,
+                            "An unknown file has been founded : " + currentFile.getAbsolutePath());
+                }
             }
         }
         return result;

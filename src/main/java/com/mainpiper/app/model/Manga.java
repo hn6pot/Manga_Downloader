@@ -38,7 +38,7 @@ public class Manga {
 
     public void updateChapters(List<Chapter> chapters) {
         try {
-            chapters.addAll(chapters);
+            this.chapters.addAll(chapters);
         } catch (NullPointerException n) {
             log.debug("An error occured ", n);
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_ERROR_UPDATE_MANGA,
