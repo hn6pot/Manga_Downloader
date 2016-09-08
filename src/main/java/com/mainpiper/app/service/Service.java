@@ -13,6 +13,7 @@ import com.mainpiper.app.model.Chapter;
 import com.mainpiper.app.model.Manga;
 import com.mainpiper.app.net.Connector;
 import com.mainpiper.app.net.Downloader;
+import com.mainpiper.app.util.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,12 +27,13 @@ public class Service {
     private final Config conf;
 
     public Service(String mangaName, Config conf) {
+        String finalMangaName = StringUtils.getDefaultMangaName(mangaName);
         this.conf = conf;
-        jsonManager = new JsonManager(mangaName, conf.getWebSources(), conf.getDefaultDownloadDirectory(),
+        jsonManager = new JsonManager(finalMangaName, conf.getWebSources(), conf.getDefaultDownloadDirectory(),
                 conf.getCheckManga());
         Manga manga = jsonManager.getManga();
         connector = ConnectorFactory.createConnector(manga.getName(), manga.getSource());
-        downloader = new Downloader(mangaName, conf.getDefaultDownloadDirectory());
+        downloader = new Downloader(finalMangaName, conf.getDefaultDownloadDirectory());
         chaptersAvailable = connector.getChaptersUrl();
     }
 
