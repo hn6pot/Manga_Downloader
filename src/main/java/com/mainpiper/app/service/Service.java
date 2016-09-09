@@ -3,10 +3,14 @@ package com.mainpiper.app.service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
 import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.args.Config;
+import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.factory.ConnectorFactory;
 import com.mainpiper.app.memory.JsonManager;
 import com.mainpiper.app.model.Chapter;
@@ -37,13 +41,21 @@ public class Service {
         chaptersAvailable = connector.getChaptersUrl();
     }
 
-    public void downloadManga() {
+    public void downloadManga() throws InterruptedException, ExecutionException {
         log.debug("downloadManga in progress");
         log.info("Downloading entire Manga");
-        // TODO add multi threading operator
-        // TODO add save + check chapter already download
-        List<Chapter> chapters = chaptersAvailable.keySet().stream().parallel().map(chapter -> downloadChapter(chapter))
-                .filter(elem -> elem != null).collect(Collectors.toList());
+        List<Chapter> chapters = null;
+
+        // TODO number of threads depends on config !
+        ForkJoinPool forkJoinPool = new ForkJoinPool(16);
+        try {
+            chapters = forkJoinPool.submit(() -> downloadTask(chaptersAvailable.keySet())).get();
+        } catch (InterruptedException ie) {
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, ie);
+        } catch (ExecutionException ee) {
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, ee);
+        }
+
         log.debug("{} chapter(s) downloaded successfully", chapters.size());
         jsonManager.updateJSON(chapters);
     }
@@ -53,12 +65,29 @@ public class Service {
         List<String> chaptersAvailable = Arrays.asList(chapterNumbers);
         log.debug("downloadChapters in progress");
         log.info("Downloading chapters : {}", chapterNumbers.toString());
+        List<Chapter> chapters = null;
+        ForkJoinPool forkJoinPool = new ForkJoinPool(16);
+        try {
+            chapters = forkJoinPool.submit(() -> downloadTask(chaptersAvailable)).get();
+        } catch (InterruptedException ie) {
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, ie);
+        } catch (ExecutionException ee) {
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, ee);
+        }
 
-        List<Chapter> chapters = chaptersAvailable.stream().parallel().map(chapter -> downloadChapter(chapter))
-                .filter(elem -> elem != null).collect(Collectors.toList());
         log.debug("{} chapter(s) downloaded successfully", chapters.size());
         System.out.println(chapters.get(0).getNumber());
         jsonManager.updateJSON(chapters);
+    }
+
+    private List<Chapter> downloadTask(List<String> chaptersAvailable) {
+        return chaptersAvailable.stream().parallel().map(chapter -> downloadChapter(chapter))
+                .filter(elem -> elem != null).collect(Collectors.toList());
+    }
+
+    private List<Chapter> downloadTask(Set<String> chaptersAvailable) {
+        return chaptersAvailable.stream().parallel().map(chapter -> downloadChapter(chapter))
+                .filter(elem -> elem != null).collect(Collectors.toList());
     }
 
     private Chapter downloadChapter(String chapterNumber) {
