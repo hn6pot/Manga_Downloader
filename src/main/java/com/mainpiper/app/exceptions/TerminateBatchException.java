@@ -23,6 +23,8 @@ public class TerminateBatchException extends RuntimeException {
 
     public static final int EXIT_CODE_STRANGE_FILE_FOUNDED = 130;
 
+    public static final int EXIT_CODE_SQL_ERROR = 140;
+
     public static final int EXIT_CODE_UNKNOWN = 1;
 
     private int exitCode;

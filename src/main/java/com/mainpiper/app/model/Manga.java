@@ -37,14 +37,19 @@ public class Manga {
     }
 
     public void updateChapters(List<Chapter> chapters) {
-        try {
-            this.chapters.addAll(chapters);
-        } catch (NullPointerException n) {
-            log.debug("An error occured ", n);
-            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_ERROR_UPDATE_MANGA,
-                    "Error During the Chapters Update", n);
-        } catch (Exception e) {
-            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, e);
+        if (chapters.isEmpty()) {
+            log.debug("There is no chapters on the list provided !");
+        } else {
+            try {
+                log.debug("Manga Object update in progress");
+                this.chapters.addAll(chapters);
+            } catch (NullPointerException n) {
+                log.debug("An error occured ", n);
+                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_ERROR_UPDATE_MANGA,
+                        "Error During the Chapters Update", n);
+            } catch (Exception e) {
+                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, e);
+            }
         }
     }
 

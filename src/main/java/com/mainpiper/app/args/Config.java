@@ -22,15 +22,16 @@ public class Config {
     private MangaWebsite webSources;
 
     private Boolean checkManga;
+    private Boolean checkDirectory;
     private Boolean checkApi;
 
     public void extendConfig(CommandLine cliContent) throws ParseException {
         cli = cliContent;
-        checkManga =
-                cli.hasOption(CliOptions.OPT_CHECK) ? Boolean.valueOf(cli.getOptionValue(CliOptions.OPT_CHECK)) : true;
+        checkManga = !cli.hasOption(CliOptions.OPT_CHECK);
 
-        checkApi = cli.hasOption(CliOptions.OPT_CHECK_API)
-                ? Boolean.valueOf(cli.getOptionValue(CliOptions.OPT_CHECK_API)) : false;
+        checkDirectory = cli.hasOption(CliOptions.OPT_CHECK_DIRECTORY);
+
+        checkApi = cli.hasOption(CliOptions.OPT_CHECK_API);
 
         if (cli.hasOption(CliOptions.OPT_SOURCE)) {
             String cliWebSource = cli.getOptionValue(CliOptions.OPT_SOURCE);
@@ -38,7 +39,8 @@ public class Config {
                 webSources = MangaWebsite.getSource(cliWebSource);
             } catch (TerminateBatchException n) {
                 log.info("Web sources provided is unknown");
-                throw new org.apache.commons.cli.ParseException("Unknown Web Source");
+                throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_WRONG_SOURCE_PROVIDED,
+                        "Unknown Web Source Provided");
             } catch (Exception e) {
                 log.debug("An unexpected error occured : ", e);
                 throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN, e);
@@ -46,13 +48,14 @@ public class Config {
         } else {
             webSources = null;
         }
-
     }
 
     public void displayDebug() {
         log.debug("Default Download Directory : {}", defaultDownloadDirectory);
         if (checkManga)
             log.debug("Check Manga Activated");
+        if (checkDirectory)
+            log.debug("Check Directory Activated");
         if (checkApi)
             log.debug("Check Api Activated");
         log.debug("Web Source : {}", webSources.getName());

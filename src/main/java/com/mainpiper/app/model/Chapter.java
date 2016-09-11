@@ -7,19 +7,19 @@ public class Chapter implements Comparable<Chapter> {
 
     private final String number;
 
-    private final int pagesCount;
+    private final Integer pagesCount;
 
     private final String associatedVolume;
 
     public Chapter(String number) {
         this.number = number;
-        pagesCount = 0;
+        pagesCount = null;
         associatedVolume = null;
     }
 
     public Chapter(String number, String associatedVolume) {
         this.number = number;
-        pagesCount = 0;
+        pagesCount = null;
         this.associatedVolume = associatedVolume;
     }
 

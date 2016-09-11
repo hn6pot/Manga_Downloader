@@ -30,7 +30,7 @@ public class Downloader {
     public Downloader(String mangaName, String fileDirectory) {
         this.mangaName = mangaName;
         mangaDirectory = new File(StringUtils.getDefaultPath(mangaName, fileDirectory));
-        log.debug("Downloader for : {} initialization ended properly", this.mangaName);
+        log.trace("Downloader for : {} initialization ended properly", this.mangaName);
     }
 
     public boolean saveChapter(String chapterNumber, Map<String, String> chapterContent, Boolean cbz) {

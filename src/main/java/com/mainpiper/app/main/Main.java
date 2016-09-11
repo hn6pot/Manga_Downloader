@@ -16,7 +16,9 @@ import com.google.gson.GsonBuilder;
 import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.args.Config;
 import com.mainpiper.app.exceptions.TerminateBatchException;
-import com.mainpiper.app.service.Service;
+import com.mainpiper.app.exceptions.TerminateScriptProperly;
+import com.mainpiper.app.services.Service;
+import com.mainpiper.app.services.ServiceUpdate;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +36,6 @@ public class Main {
             commandLine = cliParser.parse(CliOptions.getInstance(), args);
 
             if (args.length > 0) {
-                mangaName = args[0];
                 String configPath = ClassLoader.getSystemResource("config").getFile();
 
                 File t = new File(configPath);
@@ -55,16 +56,22 @@ public class Main {
                 Boolean cliHasVersion = commandLine.hasOption(CliOptions.OPT_VERSION);
                 Boolean cliHasChapter = commandLine.hasOption(CliOptions.OPT_CHAPTER);
 
-                service = new Service(mangaName, conf);
-
-                if (cliHasHelp) {
-                    printUsageAndExit("USAGE");
-                } else if (cliHasVersion) {
-                    printVersion();
-                } else if (cliHasChapter) {
-                    service.downloadChapters();
+                if (args[0].equals(CliOptions.OPT_UPDATE_LONG) || args[0].equals(CliOptions.OPT_UPDATE_SHORT)) {
+                    ServiceUpdate.update(conf);
                 } else {
-                    service.downloadManga();
+                    mangaName = args[0];
+
+                    service = new Service(mangaName, conf);
+
+                    if (cliHasHelp) {
+                        printUsageAndExit("USAGE");
+                    } else if (cliHasVersion) {
+                        printVersion();
+                    } else if (cliHasChapter) {
+                        service.downloadChapters();
+                    } else {
+                        service.downloadManga();
+                    }
                 }
             } else {
                 printUsageAndExit("Wrong usage");
@@ -72,6 +79,9 @@ public class Main {
         } catch (ParseException e) {
             log.debug("Erreur in the Cli parsing : ", e);
             printUsageAndExit("Wrong usage");
+        } catch (TerminateScriptProperly ts) {
+            log.info(ts.getMessage());
+            System.exit(0);
         } catch (TerminateBatchException ex) {
             log.error("Batch failure with code: {}\n", ex.getExitCode(), ex);
             System.exit(ex.getExitCode());

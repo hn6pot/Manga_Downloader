@@ -16,8 +16,8 @@ public class StringUtils {
     public final static String jpgExtension = ".jpg";
     public final static String zipExtension = ".zip";
     public final static String cbzExtension = ".cbz";
+    private final static String jsonExtension = ".json";
 
-    private final static String json = "Json.txt";
     private final static String content = "content";
 
     // TODO -> Move in MangaFox class
@@ -120,10 +120,10 @@ public class StringUtils {
     }
 
     public static String getPath(String mangaName, String defaultDirectory) {
-        return defaultDirectory + File.separator + mangaName + File.separator + json;
+        return defaultDirectory + File.separator + mangaName + jsonExtension;
     }
 
     public static String getDefaultPath(String mangaName, String defaultDirectory) {
-        return defaultDirectory + File.separator + mangaName + File.separator + content;
+        return defaultDirectory + File.separator + mangaName;
     }
 }

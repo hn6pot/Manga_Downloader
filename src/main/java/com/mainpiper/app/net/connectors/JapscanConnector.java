@@ -38,7 +38,7 @@ public class JapscanConnector extends HtmlConnector {
         this.mangaName = transformMangaName(mangaName);
         mangaUrl = WEBSITEURL + this.mangaName + "/";
         chaptersUrl = getChaptersUrl();
-        log.info("Successful AbstractConnector Creation");
+        log.trace("Successful AbstractConnector Creation");
         log.debug("LelScanConnector Initialization ended properly");
     }
 
@@ -96,7 +96,7 @@ public class JapscanConnector extends HtmlConnector {
             Element o = it.next();
             String href = o.absUrl("href");
             if (first) {
-                log.info("Trad Team : {}", href);
+                log.trace("Trad Team : {}", href);
                 first = false;
             }
             if (href.contains(LECTURE)) {
@@ -111,7 +111,7 @@ public class JapscanConnector extends HtmlConnector {
                 result.put(chapterNumber, href);
             }
         }
-        log.debug("getChaptersUrl Ended Properly");
+        log.trace("getChaptersUrl Ended Properly");
         log.info("We apparently get every chapters url needed !");
         return result;
     }
@@ -156,7 +156,7 @@ public class JapscanConnector extends HtmlConnector {
 
         Element it = option.first();
         link = it.absUrl("src");
-        log.debug("getImage Ended Properly");
+        log.trace("getImage Ended Properly");
         return link;
 
     }

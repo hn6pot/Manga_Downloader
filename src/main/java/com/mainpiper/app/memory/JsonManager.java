@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JsonManager {
 
     private final static String DEFAULT_CHARSET = "UTF-8";
+    public final static String defaultMemoryDirectory = "Memory";
 
     private final Gson GSON;
     private final String defaultDirectory;
@@ -34,8 +35,18 @@ public class JsonManager {
     public JsonManager(String mangaName, MangaWebsite WebSources, String defaultDirectory, Boolean checkDirectory) {
         GSON = new GsonBuilder().setPrettyPrinting().create();
         this.defaultDirectory = defaultDirectory;
-        mangaJson = new File(StringUtils.getPath(mangaName, defaultDirectory));
+        mangaJson = new File(StringUtils.getPath(mangaName, defaultMemoryDirectory));
         manga = getManga(mangaName, WebSources);
+        if (checkDirectory) {
+            updateMangaFromDirectory();
+        }
+    }
+
+    public JsonManager(File mangaJson, String defaultDirectory, Boolean checkDirectory) {
+        GSON = new GsonBuilder().setPrettyPrinting().create();
+        this.defaultDirectory = defaultDirectory;
+        this.mangaJson = mangaJson;
+        manga = getMangaFromJson();
         if (checkDirectory) {
             updateMangaFromDirectory();
         }
@@ -55,10 +66,11 @@ public class JsonManager {
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
                     "Unexpected Error occured during the Json file Update", e);
         }
-        log.info("Manga update ended without issues, json file has been overwrite");
+        log.info("Manga update ended without issues, json file has been overwrited");
     }
 
     public void updateMangaFromDirectory() {
+        log.trace("Update Json From Directory in progress");
         String path = StringUtils.getDefaultPath(manga.getName(), defaultDirectory);
         File defaultDirectory = new File(path);
         updateJSON(checkDirectory(defaultDirectory));
@@ -99,7 +111,7 @@ public class JsonManager {
     }
 
     private List<Chapter> checkDirectory(File currentFile) {
-        log.trace("Directory checked : {}", currentFile);
+        log.debug("Directory checked : {}", currentFile);
         List<Chapter> result = new ArrayList<Chapter>();
         if (currentFile.exists()) {
             if (currentFile.isDirectory()) {
@@ -114,7 +126,7 @@ public class JsonManager {
                     // TODO add mangas download without cbz format
                     String chapterNumber = currentFile.getName().replace(StringUtils.cbzExtension, "");
                     Chapter chapter = new Chapter(chapterNumber);
-                    log.trace("Chapter founded : {}", chapterNumber);
+                    log.debug("Chapter founded : {}", chapterNumber);
                     result.add(chapter);
                 } else {
                     throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_STRANGE_FILE_FOUNDED,

@@ -11,10 +11,13 @@ public class CliOptions extends Options {
     public static final String OPT_SOURCE = "s";
     public static final String OPT_VOLUME = "v";
     public static final String OPT_CHAPTER = "c";
-    public static final String OPT_CHECK = "check";
+    public static final String OPT_CHECK = "nocheck";
+    public static final String OPT_CHECK_DIRECTORY = "check_directory";
     public static final String OPT_CHECK_API = "check_api";
     public static final String OPT_HELP = "help";
     public static final String OPT_VERSION = "version";
+    public static final String OPT_UPDATE_LONG = "--update";
+    public static final String OPT_UPDATE_SHORT = "-u";
     public static final String defaultValue = "Default";
 
     private static CliOptions instance = new CliOptions();
@@ -37,6 +40,9 @@ public class CliOptions extends Options {
 
         Option check = Option.builder(OPT_CHECK).hasArg(false).desc("check something mdr").required(false).build();
 
+        Option checkDirectory = Option.builder(OPT_CHECK_DIRECTORY).hasArg(false).desc("check something else mdr")
+                .required(false).build();
+
         Option checkApi = Option.builder(OPT_CHECK_API).hasArg(false).desc("To be implemented").required(false).build();
 
         Option help = Option.builder(OPT_HELP).hasArg(false).desc("Display the help section").required(false).build();
@@ -48,6 +54,7 @@ public class CliOptions extends Options {
         addOption(volume);
         addOption(chapter);
         addOption(check);
+        addOption(checkDirectory);
         addOption(checkApi);
         addOption(help);
         addOption(version);
