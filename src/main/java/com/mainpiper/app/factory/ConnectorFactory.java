@@ -25,4 +25,8 @@ public class ConnectorFactory {
         }
         return ac;
     }
+
+    public static Connector Duplicate(Connector con) {
+        return con.getNew();
+    }
 }

@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mainpiper.app.display.Display;
 import com.mainpiper.app.enums.MangaWebsite;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.model.Chapter;
@@ -67,6 +68,7 @@ public class JsonManager {
                     "Unexpected Error occured during the Json file Update", e);
         }
         log.info("Manga update ended without issues, json file has been overwrited");
+        Display.displayInfo("Json file has been overwrited ! ");
     }
 
     public void updateMangaFromDirectory() {
@@ -85,10 +87,12 @@ public class JsonManager {
             }
         } else {
             if (webSource == null) {
-                String error = "First Download of : " + mangaName + ", you need to provide Web Sources";
+                String error = "First Time Downloading : " + mangaName + ", you need to provide Web Sources";
                 throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_NO_SOURCE_PROVIDED, error);
             } else {
-                log.info("First Download of : {}", mangaName);
+                String info = "First Time Downloading : " + mangaName;
+                log.info(info);
+                Display.displayInfo(info);
                 result = new Manga(mangaName, webSource);
             }
         }

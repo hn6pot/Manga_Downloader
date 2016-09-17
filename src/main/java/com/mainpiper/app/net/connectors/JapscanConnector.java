@@ -11,10 +11,11 @@ import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.ConnectorUtils;
 import com.mainpiper.app.util.StringUtils;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-
+@Getter
 public class JapscanConnector extends HtmlConnector {
 
     private static final String WEBSITERACINE = "http://www.japscan.com";
@@ -29,7 +30,7 @@ public class JapscanConnector extends HtmlConnector {
     private String mangaName;
     private String mangaUrl;
 
-    private final Map<String, String> chaptersUrl;
+    private Map<String, String> chaptersUrl;
 
     // FIXME change string to mangas obj
     public JapscanConnector(String mangaName) {
@@ -40,6 +41,16 @@ public class JapscanConnector extends HtmlConnector {
         chaptersUrl = getChaptersUrl();
         log.trace("Successful AbstractConnector Creation");
         log.debug("LelScanConnector Initialization ended properly");
+    }
+
+    private JapscanConnector(JapscanConnector con) {
+        super(WEBSITEURL);
+        this.mangaName = transformMangaName(con.getMangaName());
+        mangaUrl = WEBSITEURL + this.mangaName + "/";
+    }
+
+    public JapscanConnector getNew() {
+        return new JapscanConnector(this);
     }
 
     protected String transformMangaName(String mangaName) {
@@ -117,16 +128,13 @@ public class JapscanConnector extends HtmlConnector {
     }
 
     @Override
-    public Map<String, String> getImageUrls(String chapterNumber) {
+    public Map<String, String> getImageUrls(String chapterUrl) {
         // Variable Initialization
         Map<String, String> result = new HashMap<String, String>();
+        String info = "Trying to get images url from " + chapterUrl + ", on mangas : " + mangaName;
+        log.info(info);
+        // System.out.println(info);
 
-        String chapterUrl = StringUtils.checkChapter(chapterNumber, chaptersUrl);
-        if (chapterUrl == null) {
-            return null;
-        }
-
-        log.info("Trying to get images url from chapter : {}, on mangas : {}", chapterNumber, mangaName);
         Elements option = ConnectorUtils.tryConnect(connection, chapterUrl, "option");
         if (option == null) {
             return null;
@@ -141,7 +149,7 @@ public class JapscanConnector extends HtmlConnector {
         }
 
         log.debug("getImagesUrl Ended Properly");
-        log.info("We apparently get every image url needed !");
+        log.info("We get every url needed !");
         return result;
     }
 

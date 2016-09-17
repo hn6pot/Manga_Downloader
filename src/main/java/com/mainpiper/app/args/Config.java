@@ -58,7 +58,8 @@ public class Config {
             log.debug("Check Directory Activated");
         if (checkApi)
             log.debug("Check Api Activated");
-        log.debug("Web Source : {}", webSources.getName());
+        if (webSources != null)
+            log.debug("Web Source : {}", webSources.getName());
         log.debug("Api UserName : {}", apiUsername);
         log.debug("Api Password : {}", apiPassword);
 

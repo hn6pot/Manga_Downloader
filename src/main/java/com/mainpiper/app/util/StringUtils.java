@@ -2,7 +2,6 @@ package com.mainpiper.app.util;
 
 import java.io.File;
 import java.text.Normalizer;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -49,19 +48,6 @@ public class StringUtils {
         }
 
         return valeur;
-    }
-
-    public static String checkChapter(String chapterNumber, Map<String, String> chaptersUrl) {
-        String chapterUrl = chaptersUrl.get(chapterNumber);
-        if (chapterNumber == null) {
-            if (StringUtils.isChapterNumber(chapterNumber)) {
-                log.error("The chapter {} is not yet available !", chapterNumber);
-            } else {
-                log.error("There is no chapter {}, you probably misspelled it");
-            }
-            return null;
-        }
-        return chapterUrl;
     }
 
     // public static String getPageLinkModel(String pageUrl) {

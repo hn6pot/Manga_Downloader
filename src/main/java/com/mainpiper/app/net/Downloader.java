@@ -13,6 +13,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
 
+import com.mainpiper.app.display.Display;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.util.StringUtils;
 
@@ -34,18 +35,20 @@ public class Downloader {
     }
 
     public boolean saveChapter(String chapterNumber, Map<String, String> chapterContent, Boolean cbz) {
-        log.info("Downloading chapter {}", chapterNumber);
+        String info = "Chapter " + chapterNumber + ", Downloading in progress ...";
+        log.info(info);
+        Display.displaySTitle(info);
+
         String fileLocation = StringUtils.makePathconcat(mangaDirectory.getPath(), chapterNumber);
         File chapter = new File(fileLocation);
 
         try {
             if (chapter.exists()) {
                 log.warn("File already exist : {}, Manga Downloader will deleted it !", fileLocation);
-                chapter.delete();
             }
             for (Iterator<String> it = chapterContent.keySet().iterator(); it.hasNext();) {
                 String imageNumber = it.next();
-                log.trace("Downloading image {}", imageNumber);
+                log.trace("Downloading image {}, URL : {}", imageNumber, chapterContent.get(imageNumber));
                 String imagePath = StringUtils.makeFileName(chapter, imageNumber);
                 FileUtils.copyURLToFile(new URL(chapterContent.get(imageNumber)), new File(imagePath),
                         TIME_OUT_IN_MILLIS * 2, TIME_OUT_IN_MILLIS * 2);
@@ -61,7 +64,9 @@ public class Downloader {
                 }
 
             }
-            log.info("Chapter {} has been successfully downloaded", chapterNumber);
+            info = "Chapter " + chapterNumber + " has been successfully downloaded";
+            log.info(info);
+            Display.displayInfo(info);
         } catch (MalformedURLException e) {
             log.debug("Error on the url, {}", e);
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_URL_MALFORMED,

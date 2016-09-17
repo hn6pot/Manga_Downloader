@@ -63,11 +63,13 @@ public abstract class Connector {
         return WEBSITE_GENERIC_URL;
     }
 
+    public abstract Connector getNew();
+
     public abstract Map<String, String> getMangaUrls();
 
     public abstract Map<String, String> getChaptersUrl();
 
-    public abstract Map<String, String> getImageUrls(String chapterNumber);
+    public abstract Map<String, String> getImageUrls(String chapterUrl);
 
     protected final Map<Chapter, String> CHAPTERS_WITH_ERRORS = new HashMap<Chapter, String>();
 

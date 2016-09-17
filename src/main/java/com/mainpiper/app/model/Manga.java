@@ -36,13 +36,17 @@ public class Manga {
         source = webSite;
     }
 
-    public void updateChapters(List<Chapter> chapters) {
-        if (chapters.isEmpty()) {
+    public void updateChapters(List<Chapter> chaptersDownloaded) {
+        if (chaptersDownloaded.isEmpty()) {
             log.debug("There is no chapters on the list provided !");
         } else {
             try {
                 log.debug("Manga Object update in progress");
-                this.chapters.addAll(chapters);
+                System.out.println("toto");
+                if (chapters.isEmpty()) {
+                    this.chapters.add(chaptersDownloaded.get(0));
+                }
+                this.chapters.addAll(chaptersDownloaded);
             } catch (NullPointerException n) {
                 log.debug("An error occured ", n);
                 throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_ERROR_UPDATE_MANGA,

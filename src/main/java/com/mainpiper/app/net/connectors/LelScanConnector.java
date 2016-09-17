@@ -7,6 +7,7 @@ import java.util.Map;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.mainpiper.app.net.Connector;
 import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.ConnectorUtils;
 import com.mainpiper.app.util.StringUtils;
@@ -111,16 +112,11 @@ public class LelScanConnector extends HtmlConnector {
     }
 
     @Override
-    public Map<String, String> getImageUrls(String chapterNumber) {
+    public Map<String, String> getImageUrls(String chapterUrl) {
         // Variable Initialization
         Map<String, String> result = new HashMap<String, String>();
 
-        String chapterUrl = StringUtils.checkChapter(chapterNumber, chaptersUrl);
-        if (chapterUrl == null) {
-            return null;
-        }
-
-        log.info("Trying to get images url from chapter : {}, on mangas : {}", chapterNumber, mangaName);
+        log.info("Trying to get images url from : {}, on mangas : {}", chapterUrl, mangaName);
         Elements option = ConnectorUtils.tryConnect(connection, chapterUrl, "a");
         if (option == null) {
             return null;
@@ -175,6 +171,12 @@ public class LelScanConnector extends HtmlConnector {
         log.debug("getImage Ended Properly");
         return link;
 
+    }
+
+    @Override
+    public Connector getNew() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

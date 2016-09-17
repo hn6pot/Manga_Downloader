@@ -1,7 +1,7 @@
 package com.mainpiper.app.main;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.commons.cli.CommandLine;
@@ -9,40 +9,41 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.args.Config;
+import com.mainpiper.app.display.Display;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.exceptions.TerminateScriptProperly;
-import com.mainpiper.app.services.Service;
 import com.mainpiper.app.services.ServiceUpdate;
+import com.mainpiper.app.services.Services;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
-    public static final String APP_VERSION = "1.0";
+    public static final String APP_VERSION = "1.1.3";
 
     public static void main(String[] args) {
         CommandLine commandLine = null;
-        Service service = null;
+        Services service = null;
         String mangaName = null;
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "8");
+        Display.displayTitle("Manga Downloader " + APP_VERSION);
 
         try {
             CommandLineParser cliParser = new DefaultParser();
             commandLine = cliParser.parse(CliOptions.getInstance(), args);
 
             if (args.length > 0) {
-                String configPath = ClassLoader.getSystemResource("config").getFile();
-
-                File t = new File(configPath);
+                InputStream streamConfig = ClassLoader.getSystemResource("config").openStream();
                 Gson GSON = new GsonBuilder().setPrettyPrinting().create();
                 String jsonContent = new String();
                 try {
-                    jsonContent = FileUtils.readFileToString(t, Charset.forName("UTF-8"));
+                    jsonContent = IOUtils.toString(streamConfig, Charset.forName("UTF-8"));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 } catch (Exception e) {
@@ -61,7 +62,7 @@ public class Main {
                 } else {
                     mangaName = args[0];
 
-                    service = new Service(mangaName, conf);
+                    service = new Services(mangaName, conf);
 
                     if (cliHasHelp) {
                         printUsageAndExit("USAGE");
@@ -81,23 +82,26 @@ public class Main {
             printUsageAndExit("Wrong usage");
         } catch (TerminateScriptProperly ts) {
             log.info(ts.getMessage());
+            Display.displayInfo(ts.getMessage());
             System.exit(0);
         } catch (TerminateBatchException ex) {
             log.error("Batch failure with code: {}\n", ex.getExitCode(), ex);
+            Display.displayError(ex.getMessage());
             System.exit(ex.getExitCode());
         } catch (Exception ex) {
             log.error("Unknown exception: ", ex);
+            Display.displayError("Unknown exception occured, we apologize for this !\nPLease contact the support !");
             System.exit(TerminateBatchException.EXIT_CODE_UNKNOWN);
         }
     }
 
     private static void printVersion() {
-        System.out.println("Manga downloader v" + Main.APP_VERSION);
+        Display.displayInfo("Manga downloader v" + Main.APP_VERSION);
         System.exit(0);
     }
 
     private static void printUsageAndExit(String errorMsg) {
-        System.out.println(errorMsg);
+        Display.displayError(errorMsg);
         HelpFormatter hf = new HelpFormatter();
         hf.setWidth(768);
         hf.printHelp("manga_downloader <mangas name>", CliOptions.getInstance(), true);

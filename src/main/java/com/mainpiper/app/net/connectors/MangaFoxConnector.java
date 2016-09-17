@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.jsoup.Connection;
 
+import com.mainpiper.app.net.Connector;
 import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.StringUtils;
 
@@ -37,6 +38,16 @@ public class MangaFoxConnector extends HtmlConnector {
         connector = jsoupConnectionRSS(rssUrl);
     }
 
+    private MangaFoxConnector(MangaFoxConnector conn) {
+        super(BASE_URL);
+
+        mangaName = conn.getMangaName();
+
+        mangaUrl = String.format(MANGA_BASE_URL, mangaName);
+        rssUrl = String.format(MANGA_RSS_BASE_URL, mangaName);
+        connector = jsoupConnectionRSS(rssUrl);
+    }
+
     @Override
     public String getSiteUrl() {
         return BASE_URL;
@@ -62,5 +73,10 @@ public class MangaFoxConnector extends HtmlConnector {
 
     protected String transformMangaName(String mangaName) {
         return StringUtils.deAccent(mangaName).replaceAll(" ", "_").replaceAll("[^0-9a-zA-Z_]", "").toLowerCase();
+    }
+
+    @Override
+    public Connector getNew() {
+        return new MangaFoxConnector(this);
     }
 }

@@ -1,4 +1,4 @@
-package display;
+package com.mainpiper.app.display;
 
 import java.util.Iterator;
 import java.util.Scanner;
@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Display {
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -27,7 +28,7 @@ public class Display {
     public static boolean displayChapterAvailable(String mangaName, Set<String> chapters) {
         Boolean result = null;
         log.trace("Display Chapters Available");
-        System.out.println(ANSI_GREEN + "Chapters Available : " + ANSI_RESET);
+        Display.displayTitle("Chapters Available");
         Display.displaySet(chapters);
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -45,6 +46,32 @@ public class Display {
         }
         input.close();
         return result;
+    }
+
+    public static void displayTitle(String msg) {
+        System.out.println(
+                ANSI_CYAN + "--------------------------- " + msg + " ----------------------------" + ANSI_RESET);
+
+    }
+
+    public static void displaySTitle(String msg) {
+        System.out.println(ANSI_BLUE + msg + ANSI_RESET);
+    }
+
+    public static void displayError(String msg) {
+        System.out.println(ANSI_RED + msg + ANSI_RESET);
+    }
+
+    public static void displayInfo(String msg) {
+        System.out.println(ANSI_GREEN + msg + ANSI_RESET);
+    }
+
+    public static void displaySave(String msg) {
+        System.out.println(ANSI_CYAN + msg + ANSI_RESET);
+    }
+
+    public static void displayWarn(String msg) {
+        System.out.println(ANSI_YELLOW + msg + ANSI_RESET);
     }
 
 }
