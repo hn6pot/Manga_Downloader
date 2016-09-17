@@ -42,7 +42,6 @@ public class Manga {
         } else {
             try {
                 log.debug("Manga Object update in progress");
-                System.out.println("toto");
                 if (chapters.isEmpty()) {
                     this.chapters.add(chaptersDownloaded.get(0));
                 }

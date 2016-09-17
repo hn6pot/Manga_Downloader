@@ -77,7 +77,7 @@ public class Services {
         log.debug(info);
 
         jsonManager.updateJSON(chapters);
-        Display.displayTitle("Tank you for using a MainPiper&Co Production !");
+        Display.displayTitle("Thank you for using a MainPiper&Co Production !");
     }
 
     public void downloadChapters() {
@@ -94,7 +94,7 @@ public class Services {
         log.debug(info);
 
         jsonManager.updateJSON(chapters);
-        Display.displayTitle("Tank you for using a MainPiper&Co Production !");
+        Display.displayTitle("Thank you for using a MainPiper&Co Production !");
     }
 
     private Chapter downloadChapter(String chapterNumber) {

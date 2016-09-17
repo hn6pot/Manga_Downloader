@@ -67,7 +67,7 @@ public class JsonManager {
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
                     "Unexpected Error occured during the Json file Update", e);
         }
-        log.info("Manga update ended without issues, json file has been overwrited");
+        log.info("Manga update ended without issues, json file has been overwritted");
         Display.displayInfo("Json file has been overwrited ! ");
     }
 
