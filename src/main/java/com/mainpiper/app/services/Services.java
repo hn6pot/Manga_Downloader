@@ -19,6 +19,7 @@ import com.mainpiper.app.model.Manga;
 import com.mainpiper.app.net.Connector;
 import com.mainpiper.app.net.Downloader;
 import com.mainpiper.app.util.StringUtils;
+import com.mainpiper.app.util.Time;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +31,10 @@ public class Services {
     private final JsonManager jsonManager;
     private final Map<String, String> chaptersAvailable;
     private final Config conf;
+    private final Time time;
 
     public Services(String mangaName, Config conf) {
+        time = new Time();
         String finalMangaName = StringUtils.getDefaultMangaName(mangaName);
         this.conf = conf;
         jsonManager = new JsonManager(finalMangaName, conf.getWebSources(), conf.getDefaultDownloadDirectory(),
@@ -47,6 +50,7 @@ public class Services {
 
     // Constructor use for the Update Functionality
     public Services(File mangaJsonFile, Config conf) {
+        time = new Time();
         this.conf = conf;
         jsonManager = new JsonManager(mangaJsonFile, conf.getDefaultDownloadDirectory(), conf.getCheckDirectory());
         Manga manga = jsonManager.getManga();
@@ -77,7 +81,8 @@ public class Services {
         log.debug(info);
 
         jsonManager.updateJSON(chapters);
-        Display.displayTitle("Thank you for using a MainPiper&Co Production !");
+        String duration = time.getFinalTime();
+        Display.displayTitle("Thank you for using a MainPiper&Co Production ! (Exec Time : " + duration + " )");
     }
 
     public void downloadChapters() {
@@ -94,7 +99,8 @@ public class Services {
         log.debug(info);
 
         jsonManager.updateJSON(chapters);
-        Display.displayTitle("Thank you for using a MainPiper&Co Production !");
+        String duration = time.getFinalTime();
+        Display.displayTitle("Thank you for using a MainPiper&Co Production ! (Exec Time : " + duration + " )");
     }
 
     private Chapter downloadChapter(String chapterNumber) {

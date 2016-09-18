@@ -31,7 +31,8 @@ public class Main {
         CommandLine commandLine = null;
         Services service = null;
         String mangaName = null;
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "8");
+        int cores = Runtime.getRuntime().availableProcessors();
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", Integer.toString(cores));
         Display.displayTitle("Manga Downloader " + APP_VERSION);
 
         try {

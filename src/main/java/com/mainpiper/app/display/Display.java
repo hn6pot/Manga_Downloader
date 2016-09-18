@@ -39,7 +39,6 @@ public class Display {
                 result = true;
                 break;
             } else if (answer.equals("no") || answer.equals("n")) {
-                System.out.println("nope your stupid");
                 result = false;
                 break;
             }
@@ -51,7 +50,6 @@ public class Display {
     public static void displayTitle(String msg) {
         System.out.println(
                 ANSI_CYAN + "--------------------------- " + msg + " ----------------------------" + ANSI_RESET);
-
     }
 
     public static void displaySTitle(String msg) {
