@@ -7,6 +7,7 @@ import java.util.Map;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.mainpiper.app.display.Display;
 import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.ConnectorUtils;
 import com.mainpiper.app.util.StringUtils;
@@ -30,8 +31,6 @@ public class JapscanConnector extends HtmlConnector {
     private String mangaName;
     private String mangaUrl;
 
-    private Map<String, String> chaptersUrl;
-
     // FIXME change string to mangas obj
     public JapscanConnector(String mangaName) {
         super(WEBSITEURL);
@@ -45,8 +44,8 @@ public class JapscanConnector extends HtmlConnector {
 
     private JapscanConnector(JapscanConnector con) {
         super(WEBSITEURL);
-        this.mangaName = transformMangaName(con.getMangaName());
-        mangaUrl = WEBSITEURL + this.mangaName + "/";
+        this.mangaName = con.getMangaName();
+        mangaUrl = con.getMangaUrl();
     }
 
     public JapscanConnector getNew() {
@@ -67,24 +66,19 @@ public class JapscanConnector extends HtmlConnector {
 
         // Treatment
         log.info("Trying to get mangas url from : {}", WEBSITEURL);
+        Display.displaySTitle("Retrieving Manga from " + WEBSITEURL + " ...");
 
         Elements option = ConnectorUtils.tryFirstConnect(connection, WEBSITEURL, "a");
-        if (option == null) {
-            return null;
-        }
 
-        Iterator<Element> it = option.iterator();
-
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
             String href = op.absUrl("href");
             if (href.contains("mangas")) {
                 result.put(op.text(), href);
             }
-            log.debug("AbstractManga {0} with link {1} has been successfully add to the Map", op.text(),
-                    op.absUrl("href"));
+            log.trace("Manga {0} with link {1} has been successfully add to the Map", op.text(), op.absUrl("href"));
         }
-        log.info("We apparently get every AbstractManga url needed !");
+        log.info("We apparently get every Manga url available !");
         return result;
     }
 
@@ -96,14 +90,9 @@ public class JapscanConnector extends HtmlConnector {
 
         log.info("Trying to get url chapter from : {}, on mangas : {}", mangaUrl, mangaName);
         Elements option = ConnectorUtils.tryConnect(connection, mangaUrl, "a");
-        if (option == null) {
-            return null;
-        }
 
-        // let's take some urls
-        Iterator<Element> it = option.subList(5, option.size()).iterator();
         Boolean first = true;
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.subList(5, option.size()).iterator(); it.hasNext();) {
             Element o = it.next();
             String href = o.absUrl("href");
             if (first) {
@@ -123,7 +112,7 @@ public class JapscanConnector extends HtmlConnector {
             }
         }
         log.trace("getChaptersUrl Ended Properly");
-        log.info("We apparently get every chapters url needed !");
+        log.info("We apparently get every chapters url available !");
         return result;
     }
 
@@ -136,13 +125,8 @@ public class JapscanConnector extends HtmlConnector {
         // System.out.println(info);
 
         Elements option = ConnectorUtils.tryConnect(connection, chapterUrl, "option");
-        if (option == null) {
-            return null;
-        }
 
-        // let's take some urls
-        Iterator<Element> it = option.iterator();
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
             result.put(op.text().replace(PAGE, ""), getImage(WEBSITERACINE + op.val()));
             log.trace("Page {} with link {} has been successfully add to the Map", op.text(), op.val());
@@ -158,9 +142,6 @@ public class JapscanConnector extends HtmlConnector {
         String link = "";
 
         Elements option = ConnectorUtils.tryConnect(connection, url, "img");
-        if (option == null) {
-            return null;
-        }
 
         Element it = option.first();
         link = it.absUrl("src");

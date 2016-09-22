@@ -31,6 +31,8 @@ public abstract class Connector {
     protected final static int TIME_OUT_IN_MILLIS = 5000;
     protected final String WEBSITE_GENERIC_URL;
 
+    protected Map<String, String> chaptersUrl;
+
     public Connector(String websiteUrl) {
         WEBSITE_GENERIC_URL = websiteUrl;
         // TODO get the mangas url from enum

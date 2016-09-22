@@ -3,6 +3,7 @@ package com.mainpiper.app.factory;
 import java.lang.reflect.Constructor;
 
 import com.mainpiper.app.enums.MangaWebsite;
+import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.net.Connector;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,12 @@ public class ConnectorFactory {
         try {
             Constructor<?> constructor = mw.getConstructorClass().getConstructor(String.class);
             ac = (Connector) constructor.newInstance(mangaName);
+        } catch (TerminateBatchException tb) {
+            throw tb;
         } catch (Exception e) {
-            ac = null;
             log.error("Fuck this shit ! [Dev Error]", e);
-            // e.printStackTrace();
+            throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_UNKNOWN,
+                    "Fuck this shit ! [Dev Error]");
         }
         return ac;
     }

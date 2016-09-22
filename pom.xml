@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mainpiper.app</groupId>
-	<artifactId>manga_downoader</artifactId>
+	<artifactId>manga_downloader</artifactId>
 	<version>0.0.1</version>
 
 	<dependencies>

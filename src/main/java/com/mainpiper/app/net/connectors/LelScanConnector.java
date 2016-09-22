@@ -7,7 +7,8 @@ import java.util.Map;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.mainpiper.app.net.Connector;
+import com.mainpiper.app.display.Display;
+import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.net.HtmlConnector;
 import com.mainpiper.app.util.ConnectorUtils;
 import com.mainpiper.app.util.StringUtils;
@@ -31,10 +32,7 @@ public class LelScanConnector extends HtmlConnector {
     private String mangaName;
     private String mangaUrl;
 
-    private final Map<String, String> chaptersUrl;
-
-    // FIXME change string to mangas obj
-    public LelScanConnector(String mangaName) {
+    public LelScanConnector(String mangaName) throws TerminateBatchException {
         super(WEBSITEURL);
 
         this.mangaName = transformMangaName(mangaName);
@@ -44,6 +42,18 @@ public class LelScanConnector extends HtmlConnector {
         log.debug("LelScanConnector Initialization ended properly");
     }
 
+    private LelScanConnector(LelScanConnector con) {
+        super(WEBSITEURL);
+        this.mangaName = con.getMangaName();
+        mangaUrl = con.getMangaUrl();
+    }
+
+    @Override
+    public LelScanConnector getNew() {
+        return new LelScanConnector(this);
+    }
+
+    @Override
     protected String transformMangaName(String mangaName) {
         /**
          * We need this king of name : one-piece
@@ -58,25 +68,21 @@ public class LelScanConnector extends HtmlConnector {
 
         // Treatment
         log.info("Trying to get mangas url from : {}", WEBSITEURL);
-        // TODO make better first connection managment
+        Display.displaySTitle("Retrieving Manga from " + WEBSITEURL + " ...");
+
         Elements option = ConnectorUtils.tryFirstConnect(connection, WEBSITEURL, "option");
-        if (option == null) {
-            return null;
-        }
 
-        Iterator<Element> it = option.iterator();
-
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
 
             String value = op.val();
             int lastIndex = value.split("/").length - 1;
             if (!StringUtils.isChapterNumber(value.split("/")[lastIndex])) {
                 result.put(op.text(), op.val());
-                log.debug("AbstractManga {0} with link {1} has been successfully add to the Map", op.text(), op.val());
+                log.trace("Manga {0} with link {1} has been successfully add to the Map", op.text(), op.val());
             }
         }
-        log.info("We apparently get every AbstractManga url needed !");
+        log.info("We apparently get every Manga url available !");
         return result;
     }
 
@@ -89,25 +95,19 @@ public class LelScanConnector extends HtmlConnector {
 
         log.info("Trying to get url chapter from : {}, on mangas : {}", mangaUrl, mangaName);
         Elements option = ConnectorUtils.tryLelscan(connection, mangaUrl, urlBis);
-        if (option == null) {
-            return null;
-        }
 
-        // let's take some urls
-        Iterator<Element> it = option.iterator();
-
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
 
             String value = op.val();
             int lastIndex = value.split("/").length - 1;
             if (StringUtils.isChapterNumber(value.split("/")[lastIndex])) {
                 result.put(op.text(), op.val());
-                log.debug("Chapter {0} with link {1} has been successfully add to the Map", op.text(), op.val());
+                log.trace("Chapter {0} with link {1} has been successfully add to the Map", op.text(), op.val());
             }
         }
         log.debug("getChaptersUrl Ended Properly");
-        log.info("We apparently get every chapters url needed !");
+        log.info("We apparently get every chapters url available !");
         return result;
     }
 
@@ -118,15 +118,10 @@ public class LelScanConnector extends HtmlConnector {
 
         log.info("Trying to get images url from : {}, on mangas : {}", chapterUrl, mangaName);
         Elements option = ConnectorUtils.tryConnect(connection, chapterUrl, "a");
-        if (option == null) {
-            return null;
-        }
 
-        // let's take some urls
-        Iterator<Element> it = option.iterator();
         Boolean parse = false;
         Boolean skip = true;
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
             if (op.text().equals(Prec)) {
                 parse = true;
@@ -139,7 +134,7 @@ public class LelScanConnector extends HtmlConnector {
                     continue;
                 }
                 result.put(op.text(), getImage(op.absUrl("href")));
-                log.debug("Page {0} with link {1} has been successfully add to the Map", op.text(), op.val());
+                log.trace("Page {0} with link {1} has been successfully add to the Map", op.text(), op.val());
             }
         }
         log.debug("getImagesUrl Ended Properly");
@@ -154,29 +149,19 @@ public class LelScanConnector extends HtmlConnector {
         String link = "";
 
         Elements option = ConnectorUtils.tryConnect(connection, url, "img");
-        if (option == null) {
-            return null;
-        }
 
-        Iterator<Element> it = option.iterator();
-        while (it.hasNext()) {
+        for (Iterator<Element> it = option.iterator(); it.hasNext();) {
             Element op = it.next();
             String tmpLink = op.absUrl("src");
             if (!tmpLink.contains(tbc)) {
                 link = tmpLink;
-                log.debug("Image url found : {}", link);
+                log.trace("Image url found : {}", link);
                 break;
             }
         }
         log.debug("getImage Ended Properly");
         return link;
 
-    }
-
-    @Override
-    public Connector getNew() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

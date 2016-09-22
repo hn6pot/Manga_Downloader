@@ -18,6 +18,7 @@ public class TerminateBatchException extends RuntimeException {
 
     public static final int EXIT_CODE_NO_SOURCE_PROVIDED = 120;
     public static final int EXIT_CODE_WRONG_SOURCE_PROVIDED = 121;
+    public static final int EXIT_CODE_MANGA_UNKNOWN_FOR_SOURCE_PROVIDED = 122;
     public static final int EXIT_CODE_ERROR_DURING_JSON_UPDATE = 122;
     public static final int EXIT_CODE_ERROR_UPDATE_MANGA = 123;
 
