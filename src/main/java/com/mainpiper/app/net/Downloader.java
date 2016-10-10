@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -50,8 +51,11 @@ public class Downloader {
                 String imageNumber = it.next();
                 log.trace("Downloading image {}, URL : {}", imageNumber, chapterContent.get(imageNumber));
                 String imagePath = StringUtils.makeFileName(chapter, imageNumber);
-                FileUtils.copyURLToFile(new URL(chapterContent.get(imageNumber)), new File(imagePath),
-                        TIME_OUT_IN_MILLIS * 2, TIME_OUT_IN_MILLIS * 2);
+                URL url = new URL(chapterContent.get(imageNumber));
+                URLConnection conn = url.openConnection();
+                conn.setRequestProperty("User-Agent",
+                        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11");
+                FileUtils.copyInputStreamToFile(conn.getInputStream(), new File(imagePath));
             }
             if (cbz) {
                 log.debug("Czb Compression in progress");

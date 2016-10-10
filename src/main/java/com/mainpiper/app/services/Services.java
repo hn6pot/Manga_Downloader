@@ -70,13 +70,13 @@ public class Services {
     public void downloadManga() throws InterruptedException, ExecutionException {
         log.debug("downloadManga in progress");
         log.info("Downloading entire Manga");
-        Display.displayInfo("Entire Manga option selected");
+        Display.displayInfo("Entire Manga option selected.");
         List<Chapter> chapters = null;
 
         chapters = chaptersAvailable.keySet().stream().parallel().map(chapter -> downloadChapter(chapter))
                 .filter(elem -> elem != null).collect(Collectors.toList());
 
-        String info = chapters.size() + " chapter(s) downloaded successfully";
+        String info = chapters.size() + " chapter(s) downloaded successfully.";
         Display.displayInfo(info);
         log.debug(info);
 
@@ -94,7 +94,7 @@ public class Services {
         chapters = chaptersAvailable.stream().parallel().map(chapter -> downloadChapter(chapter))
                 .filter(elem -> elem != null).collect(Collectors.toList());
 
-        String info = "** " + chapters.size() + " chapter(s) downloaded successfully";
+        String info = "** " + chapters.size() + " chapter(s) downloaded successfully.";
         Display.displaySave(info);
         log.debug(info);
 
@@ -109,7 +109,8 @@ public class Services {
         Connector conn = ConnectorFactory.Duplicate(connector);
         if (chaptersAvailable.containsKey(chapterNumber)) {
             try {
-                downloader.saveChapter(chapterNumber, conn.getImageUrls(chaptersAvailable.get(chapterNumber)), true);
+                downloader.saveChapter(chapterNumber, conn.getImageUrls(chaptersAvailable.get(chapterNumber)),
+                        conf.getCbz());
                 result = new Chapter(chapterNumber);
 
             } catch (Exception e) {
@@ -117,7 +118,7 @@ public class Services {
                 log.error("An unexpected error Occured !", e);
             }
         } else {
-            String info = "Chapter " + chapterNumber + " is not available yet or you already downloaded it";
+            String info = "Chapter " + chapterNumber + " is not available yet or you already downloaded it.";
             Display.displayWarn(info);
             log.warn(info);
         }
@@ -132,7 +133,7 @@ public class Services {
                 chaptersAvailable.remove(key);
             } catch (NullPointerException ne) {
                 // case chapter is no more available on the web site
-                log.trace("Chapter {}, is no more available on the webSite {} keep it hide from the law!", key,
+                log.trace("Chapter {}, is no more available on the webSite {} keep it hide from the law !", key,
                         manga.getSource().getName());
                 continue;
             }

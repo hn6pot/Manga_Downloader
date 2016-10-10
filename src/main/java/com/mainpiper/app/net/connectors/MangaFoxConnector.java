@@ -31,7 +31,7 @@ public class MangaFoxConnector extends HtmlConnector {
     public MangaFoxConnector(String mangaName) {
         super(BASE_URL);
 
-        mangaName = mangaName;
+        this.mangaName = mangaName;
 
         mangaUrl = String.format(MANGA_BASE_URL, mangaName);
         rssUrl = String.format(MANGA_RSS_BASE_URL, mangaName);

@@ -21,16 +21,17 @@ public class Config {
     private CommandLine cli;
     private MangaWebsite webSources;
 
+    private Boolean cbz;
     private Boolean checkManga;
     private Boolean checkDirectory;
     private Boolean checkApi;
 
     public void extendConfig(CommandLine cliContent) throws ParseException {
         cli = cliContent;
+
+        cbz = cli.hasOption(CliOptions.OPT_CBZ);
         checkManga = !cli.hasOption(CliOptions.OPT_CHECK);
-
         checkDirectory = cli.hasOption(CliOptions.OPT_CHECK_DIRECTORY);
-
         checkApi = cli.hasOption(CliOptions.OPT_CHECK_API);
 
         if (cli.hasOption(CliOptions.OPT_SOURCE)) {
@@ -52,6 +53,8 @@ public class Config {
 
     public void displayDebug() {
         log.debug("Default Download Directory : {}", defaultDownloadDirectory);
+        if (cbz)
+            log.debug("Cbz Option Activated");
         if (checkManga)
             log.debug("Check Manga Activated");
         if (checkDirectory)

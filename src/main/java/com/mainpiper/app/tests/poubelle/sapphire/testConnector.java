@@ -24,6 +24,7 @@ public class testConnector {
 
         public testGenericConnector(String mangaName) {
             conn = new LireScanConnector(mangaName);
+            // conn = new MangaFoxConnector(mangaName);
         }
 
         public void run() {

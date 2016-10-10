@@ -13,8 +13,7 @@ public enum MangaWebsite {
     // TODO revise website shortcuts
 
     MANGAFOX("Manga Fox", "mfox", MangaFoxConnector.class), JAPSCAN("Japscan", "japscan", JapscanConnector.class),
-    LELSCAN("Lelscan", "lelscan", LelScanConnector.class), LIRESCAN("Lirescan", "lirescan", LireScanConnector.class),
-    LECTURE_EN_LIGNE("lecture-en-ligne", "l-e-l", LelScanConnector.class);
+    LELSCAN("Lelscan", "lelscan", LelScanConnector.class), LIRESCAN("Lirescan", "lirescan", LireScanConnector.class);
 
     private final String name;
     private final String cliShortcut;

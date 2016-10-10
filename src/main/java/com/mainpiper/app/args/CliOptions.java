@@ -11,6 +11,7 @@ public class CliOptions extends Options {
     public static final String OPT_SOURCE = "s";
     public static final String OPT_VOLUME = "v";
     public static final String OPT_CHAPTER = "c";
+    public static final String OPT_CBZ = "cbz";
     public static final String OPT_CHECK = "nocheck";
     public static final String OPT_CHECK_DIRECTORY = "check_directory";
     public static final String OPT_CHECK_API = "check_api";
@@ -38,10 +39,14 @@ public class CliOptions extends Options {
         Option chapter = Option.builder(OPT_CHAPTER).hasArg(true).optionalArg(false).argName("chapter number")
                 .desc("Specify the chapter you want to download").required(false).build();
 
-        Option check = Option.builder(OPT_CHECK).hasArg(false).desc("check something mdr").required(false).build();
+        Option cbz = Option.builder(OPT_CBZ).hasArg(false).argName("cbz").required(false)
+                .desc("Convert Output on CBZ format").required(false).build();
 
-        Option checkDirectory = Option.builder(OPT_CHECK_DIRECTORY).hasArg(false).desc("check something else mdr")
-                .required(false).build();
+        Option check = Option.builder(OPT_CHECK).hasArg(false)
+                .desc("Do not check if chapters has already been downloaded").required(false).build();
+
+        Option checkDirectory = Option.builder(OPT_CHECK_DIRECTORY).hasArg(false)
+                .desc("Check directory content to update script memory").required(false).build();
 
         Option checkApi = Option.builder(OPT_CHECK_API).hasArg(false).desc("To be implemented").required(false).build();
 
@@ -53,6 +58,7 @@ public class CliOptions extends Options {
         addOption(source);
         addOption(volume);
         addOption(chapter);
+        addOption(cbz);
         addOption(check);
         addOption(checkDirectory);
         addOption(checkApi);

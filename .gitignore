@@ -5,4 +5,8 @@
 *.project
 .settings
 output
+/log
+/Download
+/Memory
+
 

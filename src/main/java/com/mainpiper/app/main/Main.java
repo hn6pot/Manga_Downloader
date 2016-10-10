@@ -1,20 +1,14 @@
 package com.mainpiper.app.main;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.IOUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mainpiper.app.args.CliOptions;
 import com.mainpiper.app.args.Config;
+import com.mainpiper.app.args.Reader;
 import com.mainpiper.app.display.Display;
 import com.mainpiper.app.exceptions.TerminateBatchException;
 import com.mainpiper.app.exceptions.TerminateScriptProperly;
@@ -40,19 +34,8 @@ public class Main {
             commandLine = cliParser.parse(CliOptions.getInstance(), args);
 
             if (args.length > 0) {
-                InputStream streamConfig = ClassLoader.getSystemResource("config").openStream();
-                Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-                String jsonContent = new String();
-                try {
-                    jsonContent = IOUtils.toString(streamConfig, Charset.forName("UTF-8"));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Config conf = GSON.fromJson(jsonContent, Config.class);
-                conf.extendConfig(commandLine);
-                conf.displayDebug();
+                Reader reader = new Reader();
+                Config conf = reader.generateConfig(commandLine);
 
                 Boolean cliHasHelp = commandLine.hasOption(CliOptions.OPT_HELP);
                 Boolean cliHasVersion = commandLine.hasOption(CliOptions.OPT_VERSION);
