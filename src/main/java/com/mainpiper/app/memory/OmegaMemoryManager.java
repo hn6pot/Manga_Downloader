@@ -21,7 +21,6 @@ import com.mainpiper.app.model.memory.MemoryManga;
 import com.mainpiper.app.model.memory.UpdateChapter;
 import com.mainpiper.app.model.memory.UpdateJson;
 import com.mainpiper.app.util.StringUtils;
-import com.mainpiper.app.util.Time;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

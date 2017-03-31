@@ -256,11 +256,5 @@ public class IntranetApi {
 			}
 	}
 	
-	public static void main(String[] args) {
-		IntranetApi t = new IntranetApi("Ohana", "berebert", "http://192.168.1.23/API/api.php", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11");
-		System.out.println(t.getChapterList("One Piece"));
-		System.out.println(t.getMangaList());
-	}
-	
 
 }
