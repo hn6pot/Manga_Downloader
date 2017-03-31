@@ -25,14 +25,17 @@ public class Display {
         }
     }
 
-    public static boolean displayChapterAvailable(String mangaName, Set<String> chapters) {
+    public static boolean displayChapterAvailable(String mangaName, Set<String> chapters, Boolean hard) {
         Boolean result = null;
         log.trace("Display Chapters Available");
         Display.displayTitle("Chapters Available");
         Display.displaySet(chapters);
+        if(hard){
+        	return true;
+        }
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.println(ANSI_GREEN + "Do you still want to update " + mangaName + " ?  (y/n)");
+            System.out.println(ANSI_GREEN + "\nDo you still want to update " + mangaName + " ?  (y/n)");
             String answer = input.next();
             answer = answer.toLowerCase();
             if (answer.equals("yes") || answer.equals("y")) {
@@ -43,7 +46,6 @@ public class Display {
                 break;
             }
         }
-        input.close();
         return result;
     }
 

@@ -26,6 +26,12 @@ public class TerminateBatchException extends RuntimeException {
     public static final int EXIT_CODE_STRANGE_FILE_FOUNDED = 130;
 
     public static final int EXIT_CODE_SQL_ERROR = 140;
+    
+    public static final int EXIT_CODE_API_URL_CORRUPTED = 150;
+    public static final int EXIT_CODE_API_CONNECTION_FAIL = 151;
+    public static final int EXIT_CODE_API_MANGA_NAME = 152;
+    
+    public static final int EXIT_CODE_WEB_SOURCE_NOT_AVAILABLE = 160;
 
     public static final int EXIT_CODE_UNKNOWN = 1;
 

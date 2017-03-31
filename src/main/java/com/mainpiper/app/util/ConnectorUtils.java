@@ -1,5 +1,7 @@
 package com.mainpiper.app.util;
 
+import java.io.IOException;
+
 import org.jsoup.Connection;
 import org.jsoup.select.Elements;
 
@@ -15,7 +17,7 @@ public class ConnectorUtils {
         try {
             option = connector.url(url).get().select("body " + request);
         } catch (Exception e) {
-            log.warn("This url does not work properly : {} [Need Code Review]", url);
+            log.warn("This url does not work properly : {} [Need Code Review]", url, e);
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_URL_MALFORMED,
                     "This url does not work properly : " + url);
         }

@@ -28,7 +28,7 @@ public class Reader {
             streamConfig = new FileInputStream(configPath);
         } catch (FileNotFoundException fe) {
             String warning =
-                    "No Config file founded (" + configPath + "), The script will use his default Config file !";
+                    "No Config file found (" + configPath + "), The script will use a default Config file !";
             Display.displayWarn(warning);
             log.warn(warning, fe);
             streamConfig = ClassLoader.getSystemResource("config").openStream();

@@ -1,5 +1,6 @@
 package com.mainpiper.app.model;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,13 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Manga {
 
-    private String name;
-    private String link;
-    private Language language = Language.FRENCH;
+    protected String name;
+    protected String link;
+    protected Language language = Language.FRENCH;
 
-    private MangaWebsite source = MangaWebsite.LIRESCAN;
+    protected MangaWebsite source = MangaWebsite.LIRESCAN;
 
-    private Set<Chapter> chapters;
+    protected Set<Chapter> chapters;
 
     public Manga(String name, MangaWebsite webSite) {
         this.name = name;
@@ -42,9 +43,6 @@ public class Manga {
         } else {
             try {
                 log.debug("Manga Object update in progress");
-                if (chapters.isEmpty()) {
-                    this.chapters.add(chaptersDownloaded.get(0));
-                }
                 this.chapters.addAll(chaptersDownloaded);
             } catch (NullPointerException n) {
                 log.debug("An error occured ", n);

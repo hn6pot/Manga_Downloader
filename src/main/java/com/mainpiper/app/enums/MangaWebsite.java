@@ -12,11 +12,12 @@ import lombok.Getter;
 public enum MangaWebsite {
     // TODO revise website shortcuts
 
-    MANGAFOX("Manga Fox", "mfox", MangaFoxConnector.class), JAPSCAN("Japscan", "japscan", JapscanConnector.class),
-    LELSCAN("Lelscan", "lelscan", LelScanConnector.class), LIRESCAN("Lirescan", "lirescan", LireScanConnector.class);
+    MANGAFOX("Manga Fox", "mfox", false, MangaFoxConnector.class), JAPSCAN("Japscan", "japscan", false, JapscanConnector.class),
+    LELSCAN("Lelscan", "lelscan", true, LelScanConnector.class), LIRESCAN("Lirescan", "lirescan", true, LireScanConnector.class);
 
     private final String name;
     private final String cliShortcut;
+    private final Boolean available;
 
     private final Class<?> clazz;
 
@@ -47,10 +48,11 @@ public enum MangaWebsite {
         return possibleValues;
     }
 
-    MangaWebsite(String name, String cliShortcut, Class<?> clazz) {
+    MangaWebsite(String name, String cliShortcut, Boolean available, Class<?> clazz) {
         this.name = name;
         this.cliShortcut = cliShortcut;
         this.clazz = clazz;
+        this.available = available;
     }
 
     public String getName() {

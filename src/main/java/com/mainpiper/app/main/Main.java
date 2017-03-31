@@ -19,13 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
-    public static final String APP_VERSION = "1.1.4";
+    public static final String APP_VERSION = "1.4.0";
 
     public static void main(String[] args) {
         CommandLine commandLine = null;
         Services service = null;
         String mangaName = null;
-        int cores = Runtime.getRuntime().availableProcessors();
+        int cores = Runtime.getRuntime().availableProcessors()*2;
         System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", Integer.toString(cores));
         Display.displayTitle("Manga Downloader " + APP_VERSION);
 
@@ -42,6 +42,9 @@ public class Main {
                 Boolean cliHasChapter = commandLine.hasOption(CliOptions.OPT_CHAPTER);
 
                 if (args[0].equals(CliOptions.OPT_UPDATE_LONG) || args[0].equals(CliOptions.OPT_UPDATE_SHORT)) {
+                	String msg = "Update in progress...";
+                	log.info(msg);
+                	Display.displayInfo(msg);
                     ServiceUpdate.update(conf);
                 } else {
                     mangaName = args[0];
@@ -55,7 +58,7 @@ public class Main {
                     } else if (cliHasChapter) {
                         service.downloadChapters();
                     } else {
-                        service.downloadManga();
+                        service.downloadManga(true);
                     }
                 }
             } else {

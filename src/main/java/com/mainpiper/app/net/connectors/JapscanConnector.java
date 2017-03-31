@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JapscanConnector extends HtmlConnector {
 
     private static final String WEBSITERACINE = "http://www.japscan.com";
-    private static final String WEBSITEURL = "http://www.japscan.com/mangas/";
+    public static final String WEBSITEURL = "http://www.japscan.com/mangas/";
 
     /* Variables used to parse the HTML */
     public static final String LECTURE = "lecture-en-ligne";
@@ -149,4 +149,9 @@ public class JapscanConnector extends HtmlConnector {
         return link;
 
     }
+    
+    public static void main(String[] args) {
+    	JapscanConnector t = new JapscanConnector("one-piece");
+    }
+    
 }

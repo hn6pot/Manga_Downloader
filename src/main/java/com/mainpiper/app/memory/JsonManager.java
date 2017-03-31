@@ -26,16 +26,18 @@ import lombok.extern.slf4j.Slf4j;
 public class JsonManager {
 
     private final static String DEFAULT_CHARSET = "UTF-8";
-    public final static String defaultMemoryDirectory = "Memory";
+    public final String defaultMemoryDirectory;
 
     private final Gson GSON;
     private final String defaultDirectory;
     private final File mangaJson;
     private final Manga manga;
 
-    public JsonManager(String mangaName, MangaWebsite WebSources, String defaultDirectory, Boolean checkDirectory) {
+    public JsonManager(String mangaName, MangaWebsite WebSources, String defaultDirectory, String defaultMemoryDirectory,
+    		Boolean checkDirectory) {
         GSON = new GsonBuilder().setPrettyPrinting().create();
         this.defaultDirectory = defaultDirectory;
+        this.defaultMemoryDirectory = defaultMemoryDirectory;
         mangaJson = new File(StringUtils.getPath(mangaName, defaultMemoryDirectory));
         manga = getManga(mangaName, WebSources);
         if (checkDirectory) {
@@ -43,9 +45,10 @@ public class JsonManager {
         }
     }
 
-    public JsonManager(File mangaJson, String defaultDirectory, Boolean checkDirectory) {
+    public JsonManager(File mangaJson, String defaultDirectory, String defaultMemoryDirectory, Boolean checkDirectory) {
         GSON = new GsonBuilder().setPrettyPrinting().create();
         this.defaultDirectory = defaultDirectory;
+        this.defaultMemoryDirectory = defaultMemoryDirectory;
         this.mangaJson = mangaJson;
         manga = getMangaFromJson();
         if (checkDirectory) {
@@ -114,13 +117,20 @@ public class JsonManager {
         return GSON.fromJson(jsonContent, Manga.class);
     }
 
-    private List<Chapter> checkDirectory(File currentFile) {
+    public static List<Chapter> checkDirectory(File currentFile) {
         log.debug("Directory checked : {}", currentFile);
         List<Chapter> result = new ArrayList<Chapter>();
         if (currentFile.exists()) {
             if (currentFile.isDirectory()) {
                 File[] files = currentFile.listFiles();
                 for (File f : files) {
+                	if(FilenameUtils.getExtension(f.getPath()).equals("jpg")){
+                		String chapterNumber = currentFile.getName();
+                        Chapter chapter = new Chapter(chapterNumber);
+                        log.debug("Chapter founded : {}", chapterNumber);
+                        result.add(chapter);
+                        break;
+                	}
                     result.addAll(checkDirectory(f));
                 }
             } else {
@@ -132,7 +142,10 @@ public class JsonManager {
                     Chapter chapter = new Chapter(chapterNumber);
                     log.debug("Chapter founded : {}", chapterNumber);
                     result.add(chapter);
+                }else if(currentFile.getName().startsWith(".")){
+                	log.trace(".Ds file found");
                 } else {
+                
                     throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_STRANGE_FILE_FOUNDED,
                             "An unknown file has been founded : " + currentFile.getAbsolutePath());
                 }

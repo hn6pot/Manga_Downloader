@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class LelScanConnector extends HtmlConnector {
 
-    private static final String WEBSITEURL = "http://lelscan.me";
+    public static final String WEBSITEURL = "http://lelscan.me";
     private static final String LINKTOMANGA = ".lel-scan.co/";
     private static final String LINKTOMANGABIS = "http://lelscan.me/lecture-en-ligne-";
 
@@ -162,6 +162,11 @@ public class LelScanConnector extends HtmlConnector {
         log.debug("getImage Ended Properly");
         return link;
 
+    }
+    
+    public static void main(String[] args) {
+    	LelScanConnector l = new LelScanConnector("one-piece");
+    	System.out.println(l.getMangaUrls().size());
     }
 
 }

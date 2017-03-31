@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mainpiper.app.enums.MangaWebsite;
 import com.mainpiper.app.factory.ConnectorFactory;
 import com.mainpiper.app.net.Connector;
+import com.mainpiper.app.net.connectors.JapscanConnector;
 import com.mainpiper.app.net.connectors.LireScanConnector;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,8 @@ public class testConnector {
         }
 
         public testGenericConnector(String mangaName) {
-            conn = new LireScanConnector(mangaName);
-            // conn = new MangaFoxConnector(mangaName);
+//            conn = new LireScanConnector(mangaName);
+            conn = new JapscanConnector(mangaName);
         }
 
         public void run() {

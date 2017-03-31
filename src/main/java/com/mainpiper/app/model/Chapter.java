@@ -25,7 +25,14 @@ public class Chapter implements Comparable<Chapter> {
 
     @Override
     public int compareTo(Chapter o) {
-        // TODO implement correct 'compareTo' method
-        return 0;
+        if(Float.parseFloat(o.getNumber()) > Float.parseFloat(this.number)){
+        	return 1;
+        }
+        else if(Float.parseFloat(o.getNumber()) == Float.parseFloat(this.number)){
+        	return 0;
+        }
+        else{
+        	return -1;
+        }
     }
 }

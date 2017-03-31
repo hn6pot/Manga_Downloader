@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Connector {
-    private final String USER_AGENT =
+    public final String USER_AGENT =
             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11";
 
     private final String HEADER_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
@@ -28,7 +28,7 @@ public abstract class Connector {
     private final String HEADER_KEEP_ALIVE = "keep-alive";
 
     protected final static int MAX_TRIES = 3;
-    protected final static int TIME_OUT_IN_MILLIS = 5000;
+    protected final static int TIME_OUT_IN_MILLIS = 10000;
     protected final String WEBSITE_GENERIC_URL;
 
     protected Map<String, String> chaptersUrl;

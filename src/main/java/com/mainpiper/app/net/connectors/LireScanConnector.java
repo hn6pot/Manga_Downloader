@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class LireScanConnector extends HtmlConnector {
 
-    private static final String WEBSITEURL = "http://www.lirescan.net";
+    public static final String WEBSITEURL = "http://www.lirescan.net";
     private static final String LINKTOMANGA = "-lecture-en-ligne/";
 
     /* Variables used to parse the HTML */
@@ -156,6 +156,10 @@ public class LireScanConnector extends HtmlConnector {
         log.trace("getImage Ended Properly");
         return link;
 
+    }
+    public static void main(String[] args) {
+    	LireScanConnector l = new LireScanConnector("one-piece");
+    	System.out.println(l.getMangaUrls().size());
     }
 
 }

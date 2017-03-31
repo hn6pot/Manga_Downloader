@@ -14,17 +14,27 @@ import lombok.extern.slf4j.Slf4j;
 public class Config {
 
     private String defaultDownloadDirectory = "Download";
-
-    private String apiUsername = "toto";
-    private String apiPassword = "toto";
+    private String defaultMemoryDirectory = "Memory";
+    private String defaultOmegaDirectory = "OmegaMemory";
+    private String updateJson = "update";
+    private String memoryJson = "memory";
+    
+    private String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11";
+    
+    private String apiUsername;
+    private String apiPassword;
+    private String apiUrl;
 
     private CommandLine cli;
     private MangaWebsite webSources;
-
-    private Boolean cbz;
-    private Boolean checkManga;
-    private Boolean checkDirectory;
-    private Boolean checkApi;
+    
+    
+    private Boolean generateMemoryFile = true;
+    private Boolean cbz = false;
+    private Boolean checkManga = false ;
+    private Boolean checkDirectory= false;
+    private Boolean checkApi = false;
+    private Boolean hardUpdate = false;
 
     public void extendConfig(CommandLine cliContent) throws ParseException {
         cli = cliContent;
@@ -33,6 +43,7 @@ public class Config {
         checkManga = !cli.hasOption(CliOptions.OPT_CHECK);
         checkDirectory = cli.hasOption(CliOptions.OPT_CHECK_DIRECTORY);
         checkApi = cli.hasOption(CliOptions.OPT_CHECK_API);
+        hardUpdate = cli.hasOption(CliOptions.OPT_UPDATE_HARD);
 
         if (cli.hasOption(CliOptions.OPT_SOURCE)) {
             String cliWebSource = cli.getOptionValue(CliOptions.OPT_SOURCE);
@@ -61,11 +72,13 @@ public class Config {
             log.debug("Check Directory Activated");
         if (checkApi)
             log.debug("Check Api Activated");
+        if (hardUpdate)
+            log.debug("Hard Update Activated");
         if (webSources != null)
             log.debug("Web Source : {}", webSources.getName());
         log.debug("Api UserName : {}", apiUsername);
         log.debug("Api Password : {}", apiPassword);
-
+        log.debug("API url : {}", apiUrl);
     }
 
 }

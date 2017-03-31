@@ -17,8 +17,10 @@ public class CliOptions extends Options {
     public static final String OPT_CHECK_API = "check_api";
     public static final String OPT_HELP = "help";
     public static final String OPT_VERSION = "version";
-    public static final String OPT_UPDATE_LONG = "--update";
-    public static final String OPT_UPDATE_SHORT = "-u";
+    public static final String OPT_UPDATE_LONG = "update";
+    public static final String OPT_UPDATE_SHORT = "u";
+    public static final String OPT_UPDATE_HARD = "hard";
+    public static final String OPT_SCRIPT_MEMORY_UPDATE ="memory_update";
     public static final String defaultValue = "Default";
 
     private static CliOptions instance = new CliOptions();
@@ -48,8 +50,10 @@ public class CliOptions extends Options {
         Option checkDirectory = Option.builder(OPT_CHECK_DIRECTORY).hasArg(false)
                 .desc("Check directory content to update script memory").required(false).build();
 
-        Option checkApi = Option.builder(OPT_CHECK_API).hasArg(false).desc("To be implemented").required(false).build();
+        Option checkApi = Option.builder(OPT_CHECK_API).hasArg(false).desc("Check manga already push in the Server").required(false).build();
 
+        Option hardUpdate = Option.builder(OPT_UPDATE_HARD).hasArg(false).desc("Make all updates without any requirement").required(false).build();
+        
         Option help = Option.builder(OPT_HELP).hasArg(false).desc("Display the help section").required(false).build();
 
         Option version =
@@ -62,6 +66,7 @@ public class CliOptions extends Options {
         addOption(check);
         addOption(checkDirectory);
         addOption(checkApi);
+        addOption(hardUpdate);
         addOption(help);
         addOption(version);
     }
