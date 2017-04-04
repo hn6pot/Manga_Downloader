@@ -37,7 +37,7 @@ public class LelScanConnector extends HtmlConnector {
 
         this.mangaName = transformMangaName(mangaName);
         mangaUrl = "http://" + this.mangaName + LINKTOMANGA;
-        log.info("Successful AbstractConnector Creation");
+        log.debug("Successful AbstractConnector Creation");
         chaptersUrl = getChaptersUrl();
         log.debug("LelScanConnector Initialization ended properly");
     }

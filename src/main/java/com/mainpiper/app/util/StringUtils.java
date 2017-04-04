@@ -2,6 +2,7 @@ package com.mainpiper.app.util;
 
 import java.io.File;
 import java.text.Normalizer;
+import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -48,6 +49,19 @@ public class StringUtils {
         }
 
         return valeur;
+    }
+    
+    public static String changeMangaFoxPageUrl(String url, String pageNumber){
+    	/*
+    	 * This function is used to find next Page Url on MangaFox Source
+    	 */
+    	String[] urlContent = url.split("/");
+    	String nextUrl = urlContent[0];
+    	for(int i = 1; i < urlContent.length - 1; i++){
+    		nextUrl += "/" + urlContent[i];
+    	}
+    	return nextUrl +  "/" + pageNumber + ".html";
+    		
     }
 
     // public static String getPageLinkModel(String pageUrl) {

@@ -15,11 +15,14 @@ public class ConnectorUtils {
     public static Elements tryConnect(Connection connector, String url, String request) {
         Elements option;
         try {
-            option = connector.url(url).get().select("body " + request);
+            option = connector.url(url)
+            		.userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11")
+            		.ignoreHttpErrors(true)
+            		.get().select("body " + request);
         } catch (Exception e) {
             log.warn("This url does not work properly : {} [Need Code Review]", url, e);
             throw new TerminateBatchException(TerminateBatchException.EXIT_CODE_URL_MALFORMED,
-                    "This url does not work properly : " + url);
+                    "This url does not work properly : " + url, e);
         }
         return option;
     }

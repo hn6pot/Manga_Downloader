@@ -7,13 +7,12 @@
 
 Here is the states of the Web Sources used by the script :
 
-LireScan :  &#10003;</br>
+LireScan :  &#10003; </br>
 LelScan :   &#10003; </br>
 Japscan :   &#10060; </br>
-MangaFox :  &#10060;
+MangaFox :  &#10003; </br>
+LectureEnLigne : &#10060;
 
 
 
-
-
-&#128060; <strong>Hn6pot</strong> &#128060;
+&#128060;

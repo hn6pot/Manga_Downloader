@@ -12,7 +12,7 @@ import lombok.Getter;
 public enum MangaWebsite {
     // TODO revise website shortcuts
 
-    MANGAFOX("Manga Fox", "mfox", false, MangaFoxConnector.class), JAPSCAN("Japscan", "japscan", false, JapscanConnector.class),
+    MANGAFOX("Manga Fox", "mfox", true, MangaFoxConnector.class), JAPSCAN("Japscan", "japscan", false, JapscanConnector.class),
     LELSCAN("Lelscan", "lelscan", true, LelScanConnector.class), LIRESCAN("Lirescan", "lirescan", true, LireScanConnector.class);
 
     private final String name;
